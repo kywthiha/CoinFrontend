@@ -1,3 +1,5 @@
+import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
@@ -24,6 +26,24 @@ import {
   SearchIcon,
 } from "@heroicons/react/solid";
 
+const banners = [
+  {
+    img: "https://cdn.coinmooner.com/mooners/BullrunR.gif",
+    href: "https://t.me/BullRunDev",
+  },
+  {
+    img: "https://cdn.coinmooner.com/mooners/ValentineFlokiR.gif",
+    href: "https://t.me/BullRunDev",
+  },
+  {
+    img: "https://cdn.coinmooner.com/mooners/crazybeer.gif",
+    href: "https://t.me/BullRunDev",
+  },
+  {
+    img: "https://cdn.coinmooner.com/mooners/killbunnyR.gif",
+    href: "https://t.me/BullRunDev",
+  },
+];
 const navigation = [
   {
     name: "Daily Presales",
@@ -284,7 +304,7 @@ export default function Layout({ children }) {
               </div>
             </div>
           </div>
-          <div className="h-full flex">
+          <div className="h-full main w-full">
             {/* Static sidebar for desktop */}
             <div className="hidden lg:flex lg:w-64 lg:flex-col lg:inset-y-0 h-full bg-primary">
               {/* Sidebar component, swap this element with another sidebar if you like */}
@@ -368,6 +388,45 @@ export default function Layout({ children }) {
                     />
                   </div>
                 </form>
+              </div>
+
+              <div className="swiper-container">
+                <Swiper
+                  loop={true}
+                  autoplay={true}
+                  spaceBetween={50}
+                  slidesPerView={3}
+                  onSlideChange={() => console.log("slide change")}
+                  onSwiper={(swiper) => console.log(swiper)}
+                  breakpoints={{
+                    // when window width is >= 640px
+                    640: {
+                      slidesPerView: 1,
+                    },
+                    0: {
+                      slidesPerView: 1,
+                    },
+                    // when window width is >= 768px
+                    768: {
+                      slidesPerView: 2,
+                    },
+                    1024: {
+                      slidesPerView: 3,
+                    },
+                  }}
+                >
+                  {banners.map((item) => (
+                    <SwiperSlide>
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        className="block w-full h-full"
+                      >
+                        <img src={item.img} />
+                      </a>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               </div>
               {children}
             </main>
