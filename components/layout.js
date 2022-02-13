@@ -136,29 +136,6 @@ export default function Layout({ children }) {
               leaveTo="translate-x-full"
             >
               <div className="relative flex-1 h-full mt-16 flex flex-col max-w-xs w-full ">
-                <Transition.Child
-                  as={Fragment}
-                  enter="ease-in-out duration-300"
-                  enterFrom="opacity-0"
-                  enterTo="opacity-100"
-                  leave="ease-in-out duration-300"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <div className="absolute hidden top-0 -left-12 pt-2">
-                    <button
-                      type="button"
-                      className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <span className="sr-only">Close sidebar</span>
-                      <XIcon
-                        className="h-6 w-6 text-secondary-light"
-                        aria-hidden="true"
-                      />
-                    </button>
-                  </div>
-                </Transition.Child>
                 <div
                   aria-label="Sidebar"
                   className="h-full bg-primary flex flex-col"
@@ -176,9 +153,9 @@ export default function Layout({ children }) {
                             href={item.href}
                             className={classNames(
                               item.current
-                                ? "bg-cyan-800 text-white"
-                                : "text-white hover:text-primary-dark",
-                              "group flex items-center py-2 text-sm leading-6"
+                                ? "text-white"
+                                : "text-white hover:text-primary-dark ",
+                              "group flex items-center py-2 text-sm leading-6 outline-none border-none"
                             )}
                             aria-current={item.current ? "page" : undefined}
                           >
