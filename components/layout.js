@@ -8,6 +8,7 @@ import {
   DocumentReportIcon,
   HomeIcon,
   MenuAlt1Icon,
+  MenuAlt3Icon,
   QuestionMarkCircleIcon,
   ScaleIcon,
   ShieldCheckIcon,
@@ -24,13 +25,48 @@ import {
 } from "@heroicons/react/solid";
 
 const navigation = [
-  { name: "Daily Presales", href: "#", icon: HomeIcon, current: true },
-  { name: "All Coins", href: "#", icon: ClockIcon, current: false },
-  { name: "Add A Coin", href: "#", icon: ScaleIcon, current: false },
-  { name: "Promote", href: "#", icon: CreditCardIcon, current: false },
-  { name: "IDO News", href: "#", icon: UserGroupIcon, current: false },
-  { name: "Tips & DYOR", href: "#", icon: DocumentReportIcon, current: false },
-  { name: "Your Profile", href: "#", icon: DocumentReportIcon, current: false },
+  {
+    name: "Daily Presales",
+    href: "#",
+    icon_text: "🎉",
+    current: true,
+  },
+  {
+    name: "All Coins",
+    href: "#",
+    icon: "https://coinmooner.com/icon/coin.png",
+    current: false,
+  },
+  {
+    name: "Add A Coin",
+    href: "#",
+    icon: "https://coinmooner.com/icon/coin.png",
+    current: false,
+  },
+  {
+    name: "Promote",
+    href: "#",
+    icon: "https://coinmooner.com/icon/diamond.png",
+    current: false,
+  },
+  {
+    name: "IDO News",
+    href: "#",
+    icon: "https://coinmooner.com/icon/fire.png",
+    current: false,
+  },
+  {
+    name: "Tips & DYOR",
+    href: "#",
+    icon: "https://coinmooner.com/icon/celebration.png",
+    current: false,
+  },
+  {
+    name: "Your Profile",
+    href: "#",
+    icon: "https://coinmooner.com/icon/coin.png",
+    current: false,
+  },
 ];
 const secondaryNavigation = [
   { name: "Settings", href: "#", icon: CogIcon },
@@ -73,7 +109,7 @@ export default function Layout({ children }) {
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
-            className="fixed inset-0 flex z-40 lg:hidden"
+            className="fixed inset-0 flex z-40 justify-end  lg:hidden"
             onClose={setSidebarOpen}
           >
             <Transition.Child
@@ -87,16 +123,19 @@ export default function Layout({ children }) {
             >
               <Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75" />
             </Transition.Child>
+            <div className="flex-shrink-0 w-14" aria-hidden="true">
+              {/* Dummy element to force sidebar to shrink to fit close icon */}
+            </div>
             <Transition.Child
               as={Fragment}
               enter="transition ease-in-out duration-300 transform"
-              enterFrom="-translate-x-full"
+              enterFrom="translate-x-full"
               enterTo="translate-x-0"
               leave="transition ease-in-out duration-300 transform"
-              leaveFrom="translate-x-0"
-              leaveTo="-translate-x-full"
+              leaveFrom="-translate-x-0"
+              leaveTo="translate-x-full"
             >
-              <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-cyan-700">
+              <div className="relative flex-1 h-full mt-16 flex flex-col max-w-xs w-full ">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-300"
@@ -106,7 +145,7 @@ export default function Layout({ children }) {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <div className="absolute top-0 right-0 -mr-12 pt-2">
+                  <div className="absolute hidden top-0 -left-12 pt-2">
                     <button
                       type="button"
                       className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
@@ -114,79 +153,120 @@ export default function Layout({ children }) {
                     >
                       <span className="sr-only">Close sidebar</span>
                       <XIcon
-                        className="h-6 w-6 text-white"
+                        className="h-6 w-6 text-secondary-light"
                         aria-hidden="true"
                       />
                     </button>
                   </div>
                 </Transition.Child>
-                <div className="flex-shrink-0 flex items-center px-4">
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/easywire-logo-cyan-300-mark-white-text.svg"
-                    alt="Easywire logo"
-                  />
-                </div>
-                <nav
-                  className="mt-5 flex-shrink-0 h-full divide-y divide-cyan-800 overflow-y-auto"
+                <div
                   aria-label="Sidebar"
+                  className="h-full bg-primary flex flex-col"
                 >
-                  <div className="px-2 space-y-1">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-cyan-800 text-white"
-                            : "text-cyan-100 hover:text-white hover:bg-cyan-600",
-                          "group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        <item.icon
-                          className="mr-4 flex-shrink-0 h-6 w-6 text-cyan-200"
-                          aria-hidden="true"
-                        />
-                        {item.name}
-                      </a>
-                    ))}
+                  {/* Sidebar component, swap this element with another sidebar if you like */}
+                  <div className="flex flex-col bg-secondary overflow-y-auto py-2">
+                    <nav
+                      className="flex-1 flex flex-col overflow-y-auto"
+                      aria-label="Sidebar"
+                    >
+                      <div className="px-2 pl-7">
+                        {navigation.map((item) => (
+                          <a
+                            key={item.name}
+                            href={item.href}
+                            className={classNames(
+                              item.current
+                                ? "bg-cyan-800 text-white"
+                                : "text-white hover:text-primary-dark",
+                              "group flex items-center py-2 text-sm leading-6"
+                            )}
+                            aria-current={item.current ? "page" : undefined}
+                          >
+                            {(item.icon && (
+                              <img src={item.icon} className="h-4 w-4 mr-2" />
+                            )) || (
+                              <span className="mr-2">{item.icon_text}</span>
+                            )}
+
+                            {item.name}
+                          </a>
+                        ))}
+                      </div>
+                    </nav>
                   </div>
-                  <div className="mt-6 pt-6">
-                    <div className="px-2 space-y-1">
-                      {secondaryNavigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className="group flex items-center px-2 py-2 text-base font-medium rounded-md text-cyan-100 hover:text-white hover:bg-cyan-600"
-                        >
-                          <item.icon
-                            className="mr-4 h-6 w-6 text-cyan-200"
-                            aria-hidden="true"
+                  <div className="flex gap-2 justify-center text-white p-4">
+                    <div className="h-20">
+                      <img
+                        src="https://coinmooner.com/icon/cup.png"
+                        className="w-full h-full"
+                      />
+                    </div>
+                    <div>
+                      <div className="mb-2 font-medium">Daily Winner</div>
+                      <div className="flex gap-2">
+                        <div className="h-12">
+                          <img
+                            src="https://coinmooner.com/logo/12149.webp?v=1"
+                            className="w-full h-full"
                           />
-                          {item.name}
-                        </a>
-                      ))}
+                        </div>
+                        <div>
+                          <div className="text-xs">Big Coin</div>
+                          <div className="text-xs rounded-md bg-secondary-dark py-1 px-2 mt-1">
+                            $BG
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </nav>
+                  <div className="flex-1 bg-secondary"></div>
+                  <div className="flex-1 flex flex-col h-full gap-4 py-4 items-center">
+                    <div className="flex gap-2">
+                      <a className="btn-primary uppercase">Login</a>
+                      <a className="btn-primary-outline uppercase">Signup</a>
+                    </div>
+                    <div className="flex gap-2  h-8 justify-center">
+                      <div className="overflow-hidden rounded-full">
+                        <img
+                          src="https://i.ibb.co/yythqDn/twitter.png"
+                          className="h-full w-full"
+                        />
+                      </div>
+                      <div className="overflow-hidden rounded-full">
+                        <img
+                          src="https://i.ibb.co/yythqDn/twitter.png"
+                          className="h-full w-full"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </Transition.Child>
-            <div className="flex-shrink-0 w-14" aria-hidden="true">
-              {/* Dummy element to force sidebar to shrink to fit close icon */}
-            </div>
           </Dialog>
         </Transition.Root>
 
         <div className="flex w-full h-full flex-col">
-          <div className="relative z-10 flex-shrink-0 flex justify-between h-20 bg-primary">
-            <div>
+          <div className="relative z-10 flex-shrink-0 flex items-center justify-between h-16 lg:h-20 bg-primary">
+            <div className="h-10">
               <img
                 src="https://coinmooner.com/logo-moon.svg"
-                className="w-full h-full py-4 pl-2"
+                className="w-full h-full  pl-2"
               />
             </div>
-            <div className="flex items-center gap-2 mr-2">
+            <div
+              className="lg:hidden flex justify-center items-center"
+              onClick={() => {
+                setSidebarOpen(!sidebarOpen);
+              }}
+            >
+              {sidebarOpen ? (
+                <XIcon className="text-secondary-light h-10 w-10" />
+              ) : (
+                <MenuAlt3Icon className="text-secondary-light h-10 w-10" />
+              )}
+            </div>
+            <div className="items-center gap-2 mr-2 hidden lg:flex">
               <form className="flex" action="#" method="GET">
                 <label htmlFor="search-field" className="sr-only">
                   Search
@@ -249,10 +329,10 @@ export default function Layout({ children }) {
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
-                        <item.icon
-                          className="mr-2 flex-shrink-0 h-6 w-6"
-                          aria-hidden="true"
-                        />
+                        {(item.icon && (
+                          <img src={item.icon} className="h-4 w-4 mr-2" />
+                        )) || <span className="mr-2">{item.icon_text}</span>}
+
                         {item.name}
                       </a>
                     ))}
@@ -287,7 +367,33 @@ export default function Layout({ children }) {
               <div className="flex-1 bg-secondary"></div>
               <div className="flex-1"></div>
             </div>
-            <main className="h-full">{children}</main>
+
+            <main className="h-full w-full">
+              <div className="lg:hidden flex w-full px-2 py-3 bg-secondary">
+                <form className="flex w-full" action="#" method="GET">
+                  <label htmlFor="search-field" className="sr-only">
+                    Search
+                  </label>
+                  <div className="relative w-full text-gray-400 focus-within:text-gray-600">
+                    <div
+                      className="absolute inset-y-0 left-0 flex items-center pointer-events-none"
+                      aria-hidden="true"
+                    >
+                      <SearchIcon
+                        className="h-5 w-5 ml-2 text-secondary-light"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <input
+                      className=" rounded-full h-full w-full pl-8 pr-3 py-2 bg-primary-dark text-white placeholder-secondary-light focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm"
+                      placeholder="Search"
+                      type="search"
+                    />
+                  </div>
+                </form>
+              </div>
+              {children}
+            </main>
           </div>
         </div>
       </div>
