@@ -255,7 +255,7 @@ export default function Layout({ children }) {
               />
             </div>
             <div
-              className="lg:hidden flex justify-center items-center"
+              className="lg:hidden flex justify-center items-center mr-2"
               onClick={() => {
                 setSidebarOpen(!sidebarOpen);
               }}
@@ -369,7 +369,7 @@ export default function Layout({ children }) {
             </div>
 
             <main className="h-full w-full">
-              <div className="lg:hidden flex w-full px-2 py-3 bg-secondary">
+              <div className="lg:hidden flex w-full px-2 py-4 bg-secondary">
                 <form className="flex w-full" action="#" method="GET">
                   <label htmlFor="search-field" className="sr-only">
                     Search
