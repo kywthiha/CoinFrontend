@@ -23,10 +23,11 @@
   }
 }
 .swiper-container {
-  padding: 1.5rem;
+  padding: 1.5rem 0;
   width: 100%;
 }
 .swiper {
+  padding:0 1.5rem !important;
   margin: auto;
   height: 40vw;
 }
