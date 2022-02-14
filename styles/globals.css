@@ -22,37 +22,4 @@
     @apply px-3 py-2 bg-secondary-light rounded-lg border-primary-dark border text-white hover:bg-primary-dark cursor-pointer hover:border hover:border-secondary-light;
   }
 }
-.swiper-container {
-  padding: 1.5rem 0;
-  width: 100%;
-}
-.swiper {
-  padding:0 1.5rem !important;
-  margin: auto;
-  height: 40vw;
-}
-.swiper img {
-  height: 100%;
-  width: 100%;
-  border-radius: 1.5rem;
-}
 
-.main {
-  display: grid;
-  grid-template-columns: 100%;
-}
-
-@media (min-width: 1024px) {
-  .main {
-    grid-template-columns: 16rem calc(100% - 16rem);
-  }
-  .swiper {
-    height: 10vw;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  .swiper {
-    height: 18vw;
-  }
-}

@@ -25,6 +25,7 @@ import {
   OfficeBuildingIcon,
   SearchIcon,
 } from "@heroicons/react/solid";
+import BannerSlider from "./banner-slider";
 
 const banners = [
   {
@@ -305,6 +306,33 @@ export default function Layout({ children }) {
             </div>
           </div>
           <div className="h-full main w-full mt-16 lg:mt-20">
+            <style jsx>{`
+              .main {
+                display: grid;
+                grid-template-columns: 100%;
+
+                @media (min-width: 1024px) {
+                  overflow-y: auto;
+                  &::-webkit-scrollbar-track {
+                    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                    border-radius: 10px;
+                    background-color: #232a32;
+                  }
+                  &::-webkit-scrollbar {
+                    width: 8px;
+                    background-color: #232a32;
+                  }
+                  &::-webkit-scrollbar-thumb {
+                    border-radius: 10px;
+                    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                    background-color: #8d83e0;
+                  }
+                  @media (min-width: 1024px) {
+                    grid-template-columns: 16rem calc(100% - 16rem);
+                  }
+                }
+              }
+            `}</style>
             {/* Static sidebar for desktop */}
             <div className="hidden fixed  lg:mt-20 lg:flex lg:w-64 lg:flex-col lg:inset-y-0 h-full bg-primary">
               {/* Sidebar component, swap this element with another sidebar if you like */}
@@ -391,44 +419,7 @@ export default function Layout({ children }) {
               </div>
 
               <div className="h-full w-full">
-              <div className="swiper-container">
-                  <Swiper
-                    loop={true}
-                    autoplay={true}
-                    spaceBetween={50}
-                    slidesPerView={3}
-                    onSlideChange={() => console.log("slide change")}
-                    onSwiper={(swiper) => console.log(swiper)}
-                    breakpoints={{
-                      // when window width is >= 640px
-                      640: {
-                        slidesPerView: 1,
-                      },
-                      0: {
-                        slidesPerView: 1,
-                      },
-                      // when window width is >= 768px
-                      768: {
-                        slidesPerView: 2,
-                      },
-                      1024: {
-                        slidesPerView: 3,
-                      },
-                    }}
-                  >
-                    {banners.map((item) => (
-                      <SwiperSlide>
-                        <a
-                          href={item.href}
-                          target="_blank"
-                          className="block w-full h-full"
-                        >
-                          <img src={item.img} />
-                        </a>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </div>
+                <BannerSlider banners={banners} />
                 {children}
               </div>
             </main>
