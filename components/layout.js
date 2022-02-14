@@ -244,7 +244,7 @@ export default function Layout({ children }) {
         </Transition.Root>
 
         <div className="flex w-full h-full flex-col">
-          <div className="relative z-10 flex-shrink-0 flex items-center justify-between h-16 lg:h-20 bg-primary">
+          <div className="z-10 flex-shrink-0 fixed w-full flex items-center justify-between h-16 lg:h-20 bg-primary">
             <div className="h-10">
               <img
                 src="https://coinmooner.com/logo-moon.svg"
@@ -304,9 +304,9 @@ export default function Layout({ children }) {
               </div>
             </div>
           </div>
-          <div className="h-full main w-full">
+          <div className="h-full main w-full mt-16 lg:mt-20">
             {/* Static sidebar for desktop */}
-            <div className="hidden lg:flex lg:w-64 lg:flex-col lg:inset-y-0 h-full bg-primary">
+            <div className="hidden fixed  lg:mt-20 lg:flex lg:w-64 lg:flex-col lg:inset-y-0 h-full bg-primary">
               {/* Sidebar component, swap this element with another sidebar if you like */}
               <div className="flex flex-col bg-secondary overflow-y-auto py-2">
                 <nav
@@ -364,7 +364,7 @@ export default function Layout({ children }) {
               <div className="flex-1 bg-secondary"></div>
               <div className="flex-1"></div>
             </div>
-
+            <div className="hidden lg:block"></div>
             <main className="h-full w-full">
               <div className="lg:hidden flex w-full px-2 py-4 bg-secondary">
                 <form className="flex w-full" action="#" method="GET">
@@ -390,45 +390,47 @@ export default function Layout({ children }) {
                 </form>
               </div>
 
+              <div className="h-full w-full">
               <div className="swiper-container">
-                <Swiper
-                  loop={true}
-                  autoplay={true}
-                  spaceBetween={50}
-                  slidesPerView={3}
-                  onSlideChange={() => console.log("slide change")}
-                  onSwiper={(swiper) => console.log(swiper)}
-                  breakpoints={{
-                    // when window width is >= 640px
-                    640: {
-                      slidesPerView: 1,
-                    },
-                    0: {
-                      slidesPerView: 1,
-                    },
-                    // when window width is >= 768px
-                    768: {
-                      slidesPerView: 2,
-                    },
-                    1024: {
-                      slidesPerView: 3,
-                    },
-                  }}
-                >
-                  {banners.map((item) => (
-                    <SwiperSlide>
-                      <a
-                        href={item.href}
-                        target="_blank"
-                        className="block w-full h-full"
-                      >
-                        <img src={item.img} />
-                      </a>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+                  <Swiper
+                    loop={true}
+                    autoplay={true}
+                    spaceBetween={50}
+                    slidesPerView={3}
+                    onSlideChange={() => console.log("slide change")}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    breakpoints={{
+                      // when window width is >= 640px
+                      640: {
+                        slidesPerView: 1,
+                      },
+                      0: {
+                        slidesPerView: 1,
+                      },
+                      // when window width is >= 768px
+                      768: {
+                        slidesPerView: 2,
+                      },
+                      1024: {
+                        slidesPerView: 3,
+                      },
+                    }}
+                  >
+                    {banners.map((item) => (
+                      <SwiperSlide>
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          className="block w-full h-full"
+                        >
+                          <img src={item.img} />
+                        </a>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+                {children}
               </div>
-              {children}
             </main>
           </div>
         </div>
