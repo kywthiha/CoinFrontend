@@ -29,18 +29,22 @@ import BannerSlider from "./banner-slider";
 
 const banners = [
   {
+    id:1,
     img: "https://cdn.coinmooner.com/mooners/BullrunR.gif",
     href: "https://t.me/BullRunDev",
   },
   {
+    id:2,
     img: "https://cdn.coinmooner.com/mooners/ValentineFlokiR.gif",
     href: "https://t.me/BullRunDev",
   },
   {
+    id:3,
     img: "https://cdn.coinmooner.com/mooners/crazybeer.gif",
     href: "https://t.me/BullRunDev",
   },
   {
+    id:4,
     img: "https://cdn.coinmooner.com/mooners/killbunnyR.gif",
     href: "https://t.me/BullRunDev",
   },
@@ -246,10 +250,10 @@ export default function Layout({ children }) {
 
         <div className="flex w-full h-full flex-col">
           <div className="z-10 flex-shrink-0 fixed w-full flex items-center justify-between h-16 lg:h-20 bg-primary">
-            <div className="h-10">
+            <div className="h-10 w-40">
               <img
-                src="https://coinmooner.com/logo-moon.svg"
-                className="w-full h-full  pl-2"
+                src="/images/logo.png"
+                className="w-full h-full object-cover  pl-2"
               />
             </div>
             <div
