@@ -1,7 +1,7 @@
 export default function Footer({ year }) {
   return (
     <>
-      <div className="flex items-center flex-col text-white py-8 gap-2">
+      <div className="flex items-center flex-col text-white pt-6 lg:pb-6 pb-2 gap-2">
         <div className="flex gap-2 items-center">
           <img src="/images/logo.png" className="w-40 h-20 object-cover" />
           <div className="overflow-hidden rounded-full h-8">

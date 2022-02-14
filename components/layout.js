@@ -30,22 +30,22 @@ import Footer from "./footer";
 
 const banners = [
   {
-    id:1,
+    id: 1,
     img: "https://cdn.coinmooner.com/mooners/BullrunR.gif",
     href: "https://t.me/BullRunDev",
   },
   {
-    id:2,
+    id: 2,
     img: "https://cdn.coinmooner.com/mooners/ValentineFlokiR.gif",
     href: "https://t.me/BullRunDev",
   },
   {
-    id:3,
+    id: 3,
     img: "https://cdn.coinmooner.com/mooners/crazybeer.gif",
     href: "https://t.me/BullRunDev",
   },
   {
-    id:4,
+    id: 4,
     img: "https://cdn.coinmooner.com/mooners/killbunnyR.gif",
     href: "https://t.me/BullRunDev",
   },
@@ -313,10 +313,11 @@ export default function Layout({ children }) {
           <div className="h-full main w-full mt-16 lg:mt-20">
             <style jsx>{`
               .main {
-                display: grid;
-                grid-template-columns: 100%;
+                display: block;
 
                 @media (min-width: 1024px) {
+                  display: grid;
+                  grid-template-columns: 16rem calc(100% - 16rem);
                   overflow-y: auto;
                   &::-webkit-scrollbar-track {
                     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -331,9 +332,6 @@ export default function Layout({ children }) {
                     border-radius: 10px;
                     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
                     background-color: #8d83e0;
-                  }
-                  @media (min-width: 1024px) {
-                    grid-template-columns: 16rem calc(100% - 16rem);
                   }
                 }
               }
@@ -426,7 +424,7 @@ export default function Layout({ children }) {
               <div className="h-full w-full">
                 <BannerSlider banners={banners} />
                 {children}
-                <Footer year={new Date().getFullYear()}/>
+                <Footer year={new Date().getFullYear()} />
               </div>
             </main>
           </div>
