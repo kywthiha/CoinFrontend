@@ -26,6 +26,7 @@ import {
   SearchIcon,
 } from "@heroicons/react/solid";
 import BannerSlider from "./banner-slider";
+import Footer from "./footer";
 
 const banners = [
   {
@@ -425,6 +426,7 @@ export default function Layout({ children }) {
               <div className="h-full w-full">
                 <BannerSlider banners={banners} />
                 {children}
+                <Footer year={new Date().getFullYear()}/>
               </div>
             </main>
           </div>
