@@ -17,6 +17,7 @@ module.exports = {
       "secondary-light": "#9488f0",
       white: "white",
       black: "black",
+      yellow: "#f7c942",
     },
     extend: {},
   },

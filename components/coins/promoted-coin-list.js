@@ -43,7 +43,7 @@ export default function PromotedCoinList({ coins }) {
             Coins can be upvoted every 1h
           </div>
         </div>
-        <CoinList coins={coins} />
+        <CoinList coins={coins.data} />
         <div className="block lg:hidden text-xs text-white text-center mt-2">
           Coins can be upvoted every 1h
         </div>
