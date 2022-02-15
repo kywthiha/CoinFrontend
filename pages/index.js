@@ -1,4 +1,8 @@
 import { useEffect } from "react";
+import AllCoin from "../components/coins/all-coin";
+import CoinList from "../components/coins/coin-list";
+import DailyPreSaleCoinList from "../components/coins/daily-pre-sale-coin-list";
+import PromotedCoinList from "../components/coins/promoted-coin-list";
 import Layout from "../components/layout";
 
 const Index = () => {
@@ -1366,73 +1370,12 @@ const Index = () => {
   ];
   return (
     <>
-      <div className="m-1 sm:m-4">
-        <div className="grid grid-cols-4 sm:grid-cols-7 text-white bg-primary border-b border-white px-2 rounded-t-lg items-center">
-          <div className="font-medium flex gap-2 items-center py-3 col-span-2 justify-start">
-            <img
-              src="https://coinmooner.com/icon/diamond.png"
-              className="w-4 h-4"
-            />
-            Project
-          </div>
-          <div className="font-medium hidden sm:flex gap-2 items-center py-3 col-span-1 justify-center">
-            Symbol
-          </div>
-          <div className="font-medium flex gap-2 items-center py-3 col-span-1 justify-center">
-            Launch
-          </div>
-          <div className="font-medium hidden sm:flex gap-2 items-center py-3 col-span-1 justify-center">
-            Vote2Win
-          </div>
-          <div className="font-medium sm:flex gap-2 items-center py-3 col-span-1 justify-center hidden">
-            Whitelist
-          </div>
-          <div className="font-medium flex gap-2 items-center py-3 col-span-1 justify-center">
-            Upvotes
-          </div>
-        </div>
-        <div className="divide-y divide-secondary-light ">
-          {items.map((item) => (
-            <>
-              <div className="grid grid-cols-4 sm:grid-cols-7 text-white bg-primary-dark  px-2  items-center hover:bg-primary cursor-pointer">
-                <div className="flex gap-2 items-center py-2 col-span-2">
-                  <img
-                    src={`https://cntoken.io${item.image}`}
-                    className="h-10 w-10"
-                  />
-                  <div>
-                    <div className="text-xs sm:text-base font-medium">{item.name}</div>
-                    <div>
-                      <span className="text-xs rounded-full px-2 bg-secondary-light">
-                        {item.chain.name}
-                      </span>
-                      <span className="text-xs bg-secondary-light rounded-full ml-2 px-2">
-                        {item.chain.name}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="hidden text-xs sm:text-base sm:flex gap-2 items-center py-2 col-span-1 justify-center">
-                  {item.symbol}
-                </div>
-                <div className="flex text-xs sm:text-base gap-2 items-center py-2 col-span-1 justify-center">
-                  {item.launch_time}
-                </div>
-                <div className="hidden text-xs sm:text-base sm:flex gap-2 items-center py-2 col-span-1 justify-center">
-                  Vote2Win
-                </div>
-                <div className="hidden text-xs sm:text-base sm:flex gap-2 items-center py-2 col-span-1 justify-center">
-                  Whitelist
-                </div>
-                <div className="text-xs sm:text-base flex gap-2 items-center py-2 col-span-1 justify-center ">
-                  <button className="border px-2 border-secondary-light rounded-md hover:bg-secondary-light py-2">
-                    🚀 {item.upvote}
-                  </button>
-                </div>
-              </div>
-            </>
-          ))}
-        </div>
+      <PromotedCoinList coins={items} />
+      <div className="mt-3">
+        <DailyPreSaleCoinList coins={items} />
+      </div>
+      <div className="mt-3">
+        <AllCoin coins={items} />
       </div>
     </>
   );
