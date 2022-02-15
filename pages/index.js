@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import axiosInstance from "../axios-instance";
+import axiosInstanceSSR from "../axios-instance-ssr";
 import AllCoin from "../components/coins/all-coin";
 import CoinList from "../components/coins/coin-list";
 import DailyPreSaleCoinList from "../components/coins/daily-pre-sale-coin-list";
@@ -20,8 +20,10 @@ const Index = ({ promoted_coins, daily_pre_sale_coins, all_coins }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   // Fetch data from external API
+
+  const axiosInstance = axiosInstanceSSR(context);
 
   const res = await Promise.all([
     axiosInstance.get("/api/coin?status=promoted"),

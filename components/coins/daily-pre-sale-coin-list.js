@@ -1,4 +1,4 @@
-import classNames from "../../helper";
+import { classNames } from "../../helper";
 import CoinList from "./coin-list";
 
 const tabs = [

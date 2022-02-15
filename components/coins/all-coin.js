@@ -1,7 +1,7 @@
 import { ChevronDownIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../axios-instance";
-import classNames from "../../helper";
+import {classNames} from "../../helper";
 import Loading from "../loading";
 import CoinList from "./coin-list";
 

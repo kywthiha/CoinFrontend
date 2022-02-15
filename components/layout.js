@@ -27,6 +27,10 @@ import {
 } from "@heroicons/react/solid";
 import BannerSlider from "./banner-slider";
 import Footer from "./footer";
+import Link from "next/link";
+import { getToken, removeToken } from "../helper";
+import { useRouter } from "next/router";
+import ButtonLoading from "./button-loading";
 
 const banners = [
   {
@@ -50,50 +54,7 @@ const banners = [
     href: "https://t.me/BullRunDev",
   },
 ];
-const navigation = [
-  {
-    name: "Daily Presales",
-    href: "#",
-    icon_text: "🎉",
-    current: true,
-  },
-  {
-    name: "All Coins",
-    href: "#",
-    icon: "https://coinmooner.com/icon/coin.png",
-    current: false,
-  },
-  {
-    name: "Add A Coin",
-    href: "#",
-    icon: "https://coinmooner.com/icon/coin.png",
-    current: false,
-  },
-  {
-    name: "Promote",
-    href: "#",
-    icon: "https://coinmooner.com/icon/diamond.png",
-    current: false,
-  },
-  {
-    name: "IDO News",
-    href: "#",
-    icon: "https://coinmooner.com/icon/fire.png",
-    current: false,
-  },
-  {
-    name: "Tips & DYOR",
-    href: "#",
-    icon: "https://coinmooner.com/icon/celebration.png",
-    current: false,
-  },
-  {
-    name: "Your Profile",
-    href: "#",
-    icon: "https://coinmooner.com/icon/coin.png",
-    current: false,
-  },
-];
+
 const secondaryNavigation = [
   { name: "Settings", href: "#", icon: CogIcon },
   { name: "Help", href: "#", icon: QuestionMarkCircleIcon },
@@ -128,6 +89,60 @@ function classNames(...classes) {
 
 export default function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const token = getToken();
+  const router = useRouter();
+  const [logoutProcessing, setLogoutProcessing] = useState(false);
+
+  const logout = (e) => {
+    setLogoutProcessing(true);
+    removeToken();
+    router.reload();
+  };
+
+  const navigation = [
+    {
+      name: "Daily Presales",
+      href: "#",
+      icon_text: "🎉",
+      current: true,
+    },
+    {
+      name: "All Coins",
+      href: "#",
+      icon: "https://coinmooner.com/icon/coin.png",
+      current: false,
+    },
+    {
+      name: "Add A Coin",
+      href: "#",
+      icon: "https://coinmooner.com/icon/coin.png",
+      current: false,
+    },
+    {
+      name: "Promote",
+      href: "#",
+      icon: "https://coinmooner.com/icon/diamond.png",
+      current: false,
+    },
+    {
+      name: "IDO News",
+      href: "#",
+      icon: "https://coinmooner.com/icon/fire.png",
+      current: false,
+    },
+    {
+      name: "Tips & DYOR",
+      href: "#",
+      icon: "https://coinmooner.com/icon/celebration.png",
+      current: false,
+    },
+    {
+      name: "Your Profile",
+      href: token ? "/profile" : "/auth/login",
+      icon: "https://coinmooner.com/icon/coin.png",
+      current: false,
+    },
+  ];
 
   return (
     <>
@@ -174,25 +189,23 @@ export default function Layout({ children }) {
                     >
                       <div className="px-2 pl-7">
                         {navigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.current
-                                ? "text-white"
-                                : "text-white hover:text-primary-dark ",
-                              "group flex items-center py-2 text-sm leading-6 outline-none border-none"
-                            )}
-                            aria-current={item.current ? "page" : undefined}
-                          >
-                            {(item.icon && (
-                              <img src={item.icon} className="h-4 w-4 mr-2" />
-                            )) || (
-                              <span className="mr-2">{item.icon_text}</span>
-                            )}
+                          <Link href={item.href} key={item.name}>
+                            <a
+                              className={classNames(
+                                item.current ? "text-white" : "text-white",
+                                "group flex items-center py-2 text-sm leading-6 outline-none border-none"
+                              )}
+                              aria-current={item.current ? "page" : undefined}
+                            >
+                              {(item.icon && (
+                                <img src={item.icon} className="h-4 w-4 mr-2" />
+                              )) || (
+                                <span className="mr-2">{item.icon_text}</span>
+                              )}
 
-                            {item.name}
-                          </a>
+                              {item.name}
+                            </a>
+                          </Link>
                         ))}
                       </div>
                     </nav>
@@ -225,8 +238,27 @@ export default function Layout({ children }) {
                   <div className="flex-1 bg-secondary"></div>
                   <div className="flex-1 flex flex-col h-full gap-4 py-4 items-center">
                     <div className="flex gap-2">
-                      <a className="btn-primary uppercase">Login</a>
-                      <a className="btn-primary-outline uppercase">Signup</a>
+                      {token ? (
+                        <>
+                          <button
+                            disabled={logoutProcessing}
+                            className="btn-primary uppercase inline-flex gap-2"
+                            onClick={logout}
+                          >
+                            {logoutProcessing ? <ButtonLoading /> : <></>}
+                            Logout
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <Link href="/auth/login">
+                            <a className="btn-primary uppercase">Login</a>
+                          </Link>
+                          <a className="btn-primary-outline uppercase">
+                            Signup
+                          </a>
+                        </>
+                      )}
                     </div>
                     <div className="flex gap-2  h-8 justify-center">
                       <div className="overflow-hidden rounded-full">
@@ -292,8 +324,21 @@ export default function Layout({ children }) {
                 </div>
               </form>
               <a className="btn-primary-outline">Add a Coin</a>
-              <a className="btn-primary uppercase">Login</a>
-              <a className="btn-primary-outline uppercase">Signup</a>
+              {token ? (
+                <>
+                  <a className="btn-primary uppercase" onClick={logout}>
+                    Logout
+                  </a>
+                </>
+              ) : (
+                <>
+                  <Link href="/auth/login">
+                    <a className="btn-primary uppercase">Login</a>
+                  </Link>
+                  <a className="btn-primary-outline uppercase">Signup</a>
+                </>
+              )}
+
               <div className="flex gap-2  h-8">
                 <div className="overflow-hidden rounded-full">
                   <img
@@ -346,23 +391,23 @@ export default function Layout({ children }) {
                 >
                   <div className="px-2 pl-7">
                     {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-cyan-800 text-white"
-                            : "text-white hover:text-primary-dark",
-                          "group flex items-center py-2 text-sm leading-6"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {(item.icon && (
-                          <img src={item.icon} className="h-4 w-4 mr-2" />
-                        )) || <span className="mr-2">{item.icon_text}</span>}
+                      <Link key={item.name} href={item.href}>
+                        <a
+                          className={classNames(
+                            item.current
+                              ? "text-white"
+                              : "text-white hover:text-primary",
+                            "group flex items-center py-2 text-sm leading-6"
+                          )}
+                          aria-current={item.current ? "page" : undefined}
+                        >
+                          {(item.icon && (
+                            <img src={item.icon} className="h-4 w-4 mr-2" />
+                          )) || <span className="mr-2">{item.icon_text}</span>}
 
-                        {item.name}
-                      </a>
+                          {item.name}
+                        </a>
+                      </Link>
                     ))}
                   </div>
                 </nav>
