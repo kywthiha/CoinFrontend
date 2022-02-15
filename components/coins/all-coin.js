@@ -33,9 +33,9 @@ export default function AllCoin({ coins }) {
   return (
     <>
       <div className="m-1 sm:m-4">
-        <div className="flex justify-between mb-3">
+        <div className="flex justify-between mb-3 mx-2 sm:mx-0">
           <div className="block">
-            <nav className="flex space-x-4 flex-wrap gap-2" aria-label="Tabs">
+            <nav className="flex flex-wrap gap-2" aria-label="Tabs">
               {tabs.map((tab) => (
                 <a
                   key={tab.name}
