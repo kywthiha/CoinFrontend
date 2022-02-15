@@ -17,7 +17,7 @@ export default function Coincoin({ coin, index }) {
           {index + 1}
         </div>
         <div className="flex gap-2 coins-center py-2 items-center overflow-x-auto">
-          <img src={`https://cntoken.io${coin.image}`} className="h-10 w-10" />
+          <img src={coin.logo} className="h-10 w-10" />
           <div>
             <div className="text-xs sm:text-base font-medium">{coin.name}</div>
             <div className="flex flex-wrap gap-2 items-center">
