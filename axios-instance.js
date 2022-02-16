@@ -9,14 +9,7 @@ const axiosInstance = axios.create({
     : process.env.NEXT_PUBLIC_BACKEND_URL,
 });
 
+axiosInstance.defaults.withCredentials = true
 axiosInstance.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-
-if (!is_ssr) {
-  axiosInstance.interceptors.request.use(function (config) {
-    const token = getToken();
-    config.headers.Authorization = token ? `Bearer ${token}` : "";
-    return config;
-  });
-}
 
 export default axiosInstance;

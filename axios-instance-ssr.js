@@ -2,10 +2,10 @@ import axios from "axios";
 import axiosInstance from "./axios-instance";
 
 export default function axiosInstanceSSR(context) {
-  const { token, anonymous_token } = context.req.cookies;
-  axiosInstance.defaults.headers.common["anonymous-token"] = anonymous_token ? anonymous_token : "";
-  axiosInstance.defaults.headers.common["Authorization"] = token
-    ? `Bearer ${token}`
-    : "";
+  if (context.req && context.req.header && context.req.headers.cookie) {
+    axiosInstance.defaults.headers.common["Cookie"] =
+      context.req.headers.cookie;
+  }
+
   return axiosInstance;
 }

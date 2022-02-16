@@ -28,9 +28,10 @@ import {
 import BannerSlider from "./banner-slider";
 import Footer from "./footer";
 import Link from "next/link";
-import { getToken, removeToken } from "../helper";
+import { getToken, handleError, removeToken } from "../helper";
 import { useRouter } from "next/router";
 import ButtonLoading from "./button-loading";
+import axiosInstance from "../axios-instance";
 
 const banners = [
   {
@@ -93,10 +94,15 @@ export default function Layout({ children }) {
   const router = useRouter();
   const [logoutProcessing, setLogoutProcessing] = useState(false);
 
-  const logout = (e) => {
+  const logout = async (e) => {
     setLogoutProcessing(true);
-    removeToken();
-    router.reload();
+    try {
+      await axiosInstance.post("/api/logout");
+      router.reload();
+    } catch (e) {
+      handleError(e);
+      setLogoutProcessing(false);
+    }
   };
 
   const navigation = [
@@ -242,7 +248,7 @@ export default function Layout({ children }) {
                         <>
                           <button
                             disabled={logoutProcessing}
-                            className="btn-primary uppercase inline-flex gap-2"
+                            className="btn-primary uppercase inline-flex gap-2 justify-center items-center"
                             onClick={logout}
                           >
                             {logoutProcessing ? <ButtonLoading /> : <></>}
@@ -326,9 +332,14 @@ export default function Layout({ children }) {
               <a className="btn-primary-outline">Add a Coin</a>
               {token ? (
                 <>
-                  <a className="btn-primary uppercase" onClick={logout}>
+                  <button
+                    disabled={logoutProcessing}
+                    className="btn-primary uppercase inline-flex gap-2 justify-center items-center"
+                    onClick={logout}
+                  >
+                    {logoutProcessing ? <ButtonLoading /> : <></>}
                     Logout
-                  </a>
+                  </button>
                 </>
               ) : (
                 <>
