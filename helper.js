@@ -20,6 +20,14 @@ export function removeToken() {
   return Cookies.remove("token");
 }
 
+export function getAnonymousToken() {
+  return Cookies.get("anonymous_token");
+}
+
+export function setAnonymousToken(token) {
+  return Cookies.set("anonymous_token", token);
+}
+
 export function cookieWrite(value) {
   return encodeURIComponent(value).replace(
     /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,

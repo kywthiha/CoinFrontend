@@ -98,6 +98,7 @@ export default function Layout({ children }) {
     setLogoutProcessing(true);
     try {
       await axiosInstance.post("/api/logout");
+      removeToken();
       router.reload();
     } catch (e) {
       handleError(e);

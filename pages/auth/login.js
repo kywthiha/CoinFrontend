@@ -18,6 +18,7 @@ const Login = () => {
     try {
       const formData = new FormData(e.target);
       const res = await axiosInstance.post("/api/login", formData);
+      setToken(res.data.data.token);
       router.push("/");
     } catch (e) {
       handleError(e);
