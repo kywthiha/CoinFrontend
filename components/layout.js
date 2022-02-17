@@ -113,9 +113,9 @@ export default function Layout({
   const navigation = [
     {
       name: "Daily Presales",
-      href: "#",
+      href: "/daily-pre-sale",
       icon_text: "🎉",
-      current: true,
+      current: false,
     },
     {
       name: "All Coins",
@@ -131,20 +131,20 @@ export default function Layout({
     },
     {
       name: "Promote",
-      href: "#",
-      icon: "https://coinmooner.com/icon/diamond.png",
+      href: "/promoted-coin",
+      icon: "/images/diamond.webp",
       current: false,
     },
     {
       name: "IDO News",
       href: "#",
-      icon: "https://coinmooner.com/icon/fire.png",
+      icon: "/images/fire.webp",
       current: false,
     },
     {
       name: "Tips & DYOR",
       href: "#",
-      icon: "https://coinmooner.com/icon/celebration.png",
+      icon: "/images/celebration.png",
       current: false,
     },
     {

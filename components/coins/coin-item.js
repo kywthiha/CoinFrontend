@@ -1,4 +1,19 @@
+import { useState } from "react";
+import axiosInstance from "../../axios-instance";
+
+
 export default function Coincoin({ coin, index }) {
+  const [coinData, setCoinData] = useState(coin);
+
+  const handleClickVote = async (e) => {
+    setCoinData({
+      ...coinData,
+      is_vote: coinData.id,
+      all_votes_count: coinData.all_votes_count + 1,
+    });
+    const res = await axiosInstance.put(`/api/coin/${coinData.id}`);
+  };
+
   return (
     <>
       <div className="text-white coin-item bg-primary-dark  px-2  coins-center hover:bg-primary cursor-pointer">
@@ -81,8 +96,16 @@ export default function Coincoin({ coin, index }) {
           )}
         </div>
         <div className="text-xs sm:text-base flex gap-2 coins-center py-2  justify-center items-center ">
-          <button className="border w-24 text-center px-2 border-secondary-light rounded-md hover:bg-secondary-light py-2">
-            🚀 {coin.all_votes_count}
+          <button
+            onClick={handleClickVote}
+            disabled={coinData.is_vote}
+            className={`border w-24 text-center px-2 py-2  rounded-md ${
+              coinData.is_vote
+                ? "cursor-not-allowed bg-success"
+                : "border-secondary-light hover:bg-secondary-light "
+            }`}
+          >
+            🚀 {coinData.all_votes_count || ""}
           </button>
         </div>
       </div>
