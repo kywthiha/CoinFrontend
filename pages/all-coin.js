@@ -43,9 +43,16 @@ const AllCoin = ({ all_coins, status = "today_best", server_query }) => {
           <div className="block">
             <nav className="flex flex-wrap gap-2" aria-label="Tabs">
               {server_query && server_query.search ? (
-                <button className="bg-secondary-light px-3 py-2 font-medium text-white text-sm rounded-md inline-flex items-center gap-2">
-                  Search : {(server_query && server_query.search) || ""}
-                </button>
+                <Link
+                  href={{
+                    pathname: "/all-coin",
+                    query: { ...server_query, search: null },
+                  }}
+                >
+                  <button className="bg-secondary-light px-3 py-2 font-medium text-white text-sm rounded-md inline-flex items-center gap-2">
+                    Search : {(server_query && server_query.search) || ""}
+                  </button>
+                </Link>
               ) : (
                 <></>
               )}
