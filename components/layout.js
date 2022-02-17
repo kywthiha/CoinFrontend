@@ -1,6 +1,6 @@
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   BellIcon,
@@ -28,7 +28,12 @@ import {
 import BannerSlider from "./banner-slider";
 import Footer from "./footer";
 import Link from "next/link";
-import { getToken, handleError, removeToken } from "../helper";
+import {
+  getToken,
+  handleError,
+  handleInputEvent,
+  removeToken,
+} from "../helper";
 import { useRouter } from "next/router";
 import ButtonLoading from "./button-loading";
 import axiosInstance from "../axios-instance";
@@ -88,15 +93,27 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Layout({
-  children,
-  isBanner = true,
-  isSearchBar = true,
-}) {
+export default function Layout({ children, isBanner = true, server_query }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const token = getToken();
   const router = useRouter();
   const [logoutProcessing, setLogoutProcessing] = useState(false);
+  const [form, setForm] = useState({
+    search: (server_query && server_query.search) || "",
+  });
+  const [mobileSearchBar, setMobileSearchBar] = useState(false);
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const asString = new URLSearchParams(formData).toString();
+    router.push(`${e.target.action}?${asString}`);
+    setMobileSearchBar(false);
+  };
+
+  const handleOnChange = (e) => {
+    setForm(handleInputEvent(e));
+  };
 
   const logout = async (e) => {
     setLogoutProcessing(true);
@@ -119,14 +136,14 @@ export default function Layout({
     },
     {
       name: "All Coins",
-      href: "#",
-      icon: "https://coinmooner.com/icon/coin.png",
+      href: "/all-coin",
+      icon: "/images/all_coin.png",
       current: false,
     },
     {
       name: "Add A Coin",
       href: "#",
-      icon: "https://coinmooner.com/icon/coin.png",
+      icon: "/images/coin.webp",
       current: false,
     },
     {
@@ -137,20 +154,20 @@ export default function Layout({
     },
     {
       name: "IDO News",
-      href: "#",
+      href: "/ido-news",
       icon: "/images/fire.webp",
       current: false,
     },
     {
       name: "Tips & DYOR",
-      href: "#",
+      href: "/tip-dyor",
       icon: "/images/celebration.png",
       current: false,
     },
     {
       name: "Your Profile",
       href: token ? "/protected-auth/profile" : "/auth/login",
-      icon: "https://coinmooner.com/icon/coin.png",
+      icon: "/images/user.png",
       current: false,
     },
   ];
@@ -203,6 +220,7 @@ export default function Layout({
                           <Link href={item.href} key={item.name}>
                             <a
                               onClick={(e) => {
+                                setForm({});
                                 setSidebarOpen(false);
                               }}
                               className={classNames(
@@ -307,20 +325,33 @@ export default function Layout({
                 />
               </Link>
             </div>
-            <div
-              className="lg:hidden flex justify-center items-center mr-2"
-              onClick={() => {
-                setSidebarOpen(!sidebarOpen);
-              }}
-            >
-              {sidebarOpen ? (
-                <XIcon className="text-secondary-light h-10 w-10" />
-              ) : (
-                <MenuAlt3Icon className="text-secondary-light h-10 w-10" />
-              )}
+            <div className="lg:hidden flex justify-center gap-2 items-center mr-2">
+              <SearchIcon
+                className="w-7 h-7 text-secondary-light"
+                onClick={() => {
+                  setMobileSearchBar(true);
+                }}
+              ></SearchIcon>
+              <div
+                onClick={() => {
+                  setSidebarOpen(!sidebarOpen);
+                }}
+              >
+                {sidebarOpen ? (
+                  <XIcon className="text-secondary-light h-10 w-10" />
+                ) : (
+                  <MenuAlt3Icon className="text-secondary-light h-10 w-10" />
+                )}
+              </div>
             </div>
+
             <div className="items-center gap-2 mr-2 hidden lg:flex">
-              <form className="flex" action="#" method="GET">
+              <form
+                className="flex"
+                action="/all-coin"
+                method="GET"
+                onSubmit={handleOnSubmit}
+              >
                 <label htmlFor="search-field" className="sr-only">
                   Search
                 </label>
@@ -337,6 +368,9 @@ export default function Layout({
                   <input
                     className=" rounded-full h-full pl-8 pr-3 py-2 bg-primary-dark text-white placeholder-secondary-light focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm"
                     placeholder="Search"
+                    onChange={handleOnChange}
+                    value={form.search}
+                    name="search"
                     type="search"
                   />
                 </div>
@@ -418,6 +452,10 @@ export default function Layout({
                     {navigation.map((item) => (
                       <Link key={item.name} href={item.href}>
                         <a
+                          onClick={(e) => {
+                            setForm({});
+                            // setSidebarOpen(false);
+                          }}
                           className={classNames(
                             item.current
                               ? "text-white"
@@ -467,30 +505,46 @@ export default function Layout({
             </div>
             <div className="hidden lg:block"></div>
             <main className="h-full w-full">
-              {isSearchBar ? (
+              {mobileSearchBar ? (
                 <>
-                  <div className="lg:hidden flex w-full px-2 py-4 bg-secondary">
-                    <form className="flex w-full" action="#" method="GET">
-                      <label htmlFor="search-field" className="sr-only">
-                        Search
-                      </label>
-                      <div className="relative w-full text-gray-400 focus-within:text-gray-600">
-                        <div
-                          className="absolute inset-y-0 left-0 flex items-center pointer-events-none"
-                          aria-hidden="true"
-                        >
-                          <SearchIcon
-                            className="h-5 w-5 ml-2 text-secondary-light"
+                  <div className="fixed lg:hidden top-0 w-full h-full z-30 bg-overlay">
+                    <div
+                      className="fixed w-full h-full "
+                      onClick={() => {
+                        setMobileSearchBar(false);
+                      }}
+                    ></div>
+                    <div className="px-2 py-4 mx-2">
+                      <form
+                        className="flex w-full"
+                        action="/all-coin"
+                        onSubmit={handleOnSubmit}
+                        method="GET"
+                      >
+                        <label htmlFor="search-field" className="sr-only">
+                          Search
+                        </label>
+                        <div className="relative w-full text-gray-400 focus-within:text-gray-600">
+                          <div
+                            className="absolute inset-y-0 left-0 flex items-center pointer-events-none"
                             aria-hidden="true"
+                          >
+                            <SearchIcon
+                              className="h-5 w-5 ml-2 text-secondary-light"
+                              aria-hidden="true"
+                            />
+                          </div>
+                          <input
+                            name="search"
+                            onChange={handleOnChange}
+                            value={form.search}
+                            className=" rounded-full h-full w-full pl-8 pr-3 py-2 bg-primary-dark text-white placeholder-secondary-light focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm"
+                            placeholder="Search"
+                            type="search"
                           />
                         </div>
-                        <input
-                          className=" rounded-full h-full w-full pl-8 pr-3 py-2 bg-primary-dark text-white placeholder-secondary-light focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm"
-                          placeholder="Search"
-                          type="search"
-                        />
-                      </div>
-                    </form>
+                      </form>
+                    </div>
                   </div>
                 </>
               ) : (

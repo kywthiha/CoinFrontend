@@ -20,6 +20,7 @@ module.exports = {
       yellow: "#f7c942",
       red: "#f44336",
       success:"#28a745",
+      overlay:"rgba(0,0,0,.7)",
     },
     extend: {},
   },

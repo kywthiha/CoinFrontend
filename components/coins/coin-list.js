@@ -43,7 +43,7 @@ export default function CoinList({ coins }) {
       </div>
       <div className="divide-y divide-secondary-light ">
         {coins.map((coin, index) => (
-          <CoinItem coin={coin} index={index} />
+          <CoinItem coin={coin} index={index} key={coin.id} />
         ))}
       </div>
     </div>

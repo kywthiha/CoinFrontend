@@ -22,7 +22,7 @@ const Profile = ({ user }) => {
             <div className="text-lg mb-4 text-center">Your Profile</div>
             <div className="flex justify-center">
               <div className="overflow-hidden shadow-md shadow-secondary w-20 h-20 rounded-full bg-secondary-light items-center">
-                <img src="/images/logo.png" className="w-full h-full" />
+                <img src="/images/user.png" className="w-full h-full" />
               </div>
             </div>
             <h1 className="mt-1 text-lg text-center">{user.name}</h1>
