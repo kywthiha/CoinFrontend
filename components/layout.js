@@ -88,7 +88,11 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Layout({ children }) {
+export default function Layout({
+  children,
+  isBanner = true,
+  isSearchBar = true,
+}) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const token = getToken();
   const router = useRouter();
@@ -145,7 +149,7 @@ export default function Layout({ children }) {
     },
     {
       name: "Your Profile",
-      href: token ? "/profile" : "/auth/login",
+      href: token ? "/protected-auth/profile" : "/auth/login",
       icon: "https://coinmooner.com/icon/coin.png",
       current: false,
     },
@@ -198,6 +202,9 @@ export default function Layout({ children }) {
                         {navigation.map((item) => (
                           <Link href={item.href} key={item.name}>
                             <a
+                              onClick={(e) => {
+                                setSidebarOpen(false);
+                              }}
                               className={classNames(
                                 item.current ? "text-white" : "text-white",
                                 "group flex items-center py-2 text-sm leading-6 outline-none border-none"
@@ -261,9 +268,11 @@ export default function Layout({ children }) {
                           <Link href="/auth/login">
                             <a className="btn-primary uppercase">Login</a>
                           </Link>
-                          <a className="btn-primary-outline uppercase">
-                            Signup
-                          </a>
+                          <Link href="/auth/register">
+                            <a className="btn-primary-outline uppercase">
+                              Signup
+                            </a>
+                          </Link>
                         </>
                       )}
                     </div>
@@ -291,10 +300,12 @@ export default function Layout({ children }) {
         <div className="flex w-full h-full flex-col">
           <div className="z-10 flex-shrink-0 fixed w-full flex items-center justify-between h-16 lg:h-20 bg-primary">
             <div className="h-10 w-40">
-              <img
-                src="/images/logo.png"
-                className="w-full h-full object-cover  pl-2"
-              />
+              <Link href="/">
+                <img
+                  src="/images/logo.png"
+                  className="w-full h-full object-cover  pl-2 cursor-pointer"
+                />
+              </Link>
             </div>
             <div
               className="lg:hidden flex justify-center items-center mr-2"
@@ -347,7 +358,9 @@ export default function Layout({ children }) {
                   <Link href="/auth/login">
                     <a className="btn-primary uppercase">Login</a>
                   </Link>
-                  <a className="btn-primary-outline uppercase">Signup</a>
+                  <Link href="/auth/register">
+                    <a className="btn-primary-outline uppercase">Signup</a>
+                  </Link>
                 </>
               )}
 
@@ -454,32 +467,38 @@ export default function Layout({ children }) {
             </div>
             <div className="hidden lg:block"></div>
             <main className="h-full w-full">
-              <div className="lg:hidden flex w-full px-2 py-4 bg-secondary">
-                <form className="flex w-full" action="#" method="GET">
-                  <label htmlFor="search-field" className="sr-only">
-                    Search
-                  </label>
-                  <div className="relative w-full text-gray-400 focus-within:text-gray-600">
-                    <div
-                      className="absolute inset-y-0 left-0 flex items-center pointer-events-none"
-                      aria-hidden="true"
-                    >
-                      <SearchIcon
-                        className="h-5 w-5 ml-2 text-secondary-light"
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <input
-                      className=" rounded-full h-full w-full pl-8 pr-3 py-2 bg-primary-dark text-white placeholder-secondary-light focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm"
-                      placeholder="Search"
-                      type="search"
-                    />
+              {isSearchBar ? (
+                <>
+                  <div className="lg:hidden flex w-full px-2 py-4 bg-secondary">
+                    <form className="flex w-full" action="#" method="GET">
+                      <label htmlFor="search-field" className="sr-only">
+                        Search
+                      </label>
+                      <div className="relative w-full text-gray-400 focus-within:text-gray-600">
+                        <div
+                          className="absolute inset-y-0 left-0 flex items-center pointer-events-none"
+                          aria-hidden="true"
+                        >
+                          <SearchIcon
+                            className="h-5 w-5 ml-2 text-secondary-light"
+                            aria-hidden="true"
+                          />
+                        </div>
+                        <input
+                          className=" rounded-full h-full w-full pl-8 pr-3 py-2 bg-primary-dark text-white placeholder-secondary-light focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm"
+                          placeholder="Search"
+                          type="search"
+                        />
+                      </div>
+                    </form>
                   </div>
-                </form>
-              </div>
+                </>
+              ) : (
+                <></>
+              )}
 
-              <div className="h-full w-full">
-                <BannerSlider banners={banners} />
+              <div className="w-full">
+                {isBanner ? <BannerSlider banners={banners} /> : <></>}
                 {children}
                 <Footer year={new Date().getFullYear()} />
               </div>

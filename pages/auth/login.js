@@ -99,7 +99,7 @@ const Login = () => {
           </div>
           <div className="flex justify-center items-center sm:text-xs gap-2 mt-2">
             Don't have an account?
-            <Link href="/register">
+            <Link href="/auth/register">
               <a className=" text-secondary-light underline">Register</a>
             </Link>
           </div>

@@ -32,11 +32,30 @@ export function cookieWrite(value) {
   return encodeURIComponent(value).replace(
     /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,
     decodeURIComponent
-  )
+  );
 }
-
 
 export function handleError(error) {
   alert("Error");
   console.log(JSON.stringify(error, null, 2));
+}
+
+export function createMarkup(element) {
+  return { __html: element };
+}
+
+export function handleInputEvent(e) {
+  if (e.target.type == "checkbox") {
+    return { [e.target.name]: e.target.checked };
+  } else {
+    return { [e.target.name]: e.target.value };
+  }
+}
+
+
+export function numberFormat(number) {
+  if (number) {
+      return Number(number).toLocaleString("en-US", {});
+  }
+  return number;
 }
