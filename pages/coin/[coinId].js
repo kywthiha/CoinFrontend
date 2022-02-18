@@ -8,6 +8,7 @@ import { createMarkup, numberFormat } from "../../helper";
 
 const Coin = ({ coin, pageData, promoted_coins }) => {
   const [coinData, setCoinData] = useState(coin);
+  const [promotedCoins, setPromotedCoins] = useState(promoted_coins);
 
   const handleClickVote = async (e) => {
     setCoinData({
@@ -23,8 +24,16 @@ const Coin = ({ coin, pageData, promoted_coins }) => {
     }
   };
 
+  const getFilterPromotedCoins = () => {
+    return {
+      ...promoted_coins,
+      data: promoted_coins.data.filter((c) => c.id !== coin.id),
+    };
+  };
+
   useEffect(() => {
     setCoinData(coin);
+    setPromotedCoins(getFilterPromotedCoins());
   }, [coin]);
   return (
     <Layout banners={pageData.banners}>
@@ -187,9 +196,11 @@ const Coin = ({ coin, pageData, promoted_coins }) => {
             </div>
           </div>
         </div>
-        <div className="mt-3">
-          <PromotedCoinList coins={promoted_coins} />
-        </div>
+        {(promotedCoins.data.length > 0 && (
+          <div className="mt-3">
+            <PromotedCoinList coins={promotedCoins} />
+          </div>
+        )) || <></>}
       </div>
     </Layout>
   );
