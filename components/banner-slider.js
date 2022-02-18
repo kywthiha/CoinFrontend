@@ -53,12 +53,12 @@ export default function BannerSlider({ children, banners }) {
         {banners.map((item) => (
           <SwiperSlide>
             <a
-              href={item.href}
+              href={item.link}
               key={`banner-slide-item-${item.id}`}
               target="_blank"
               className="block w-full h-full"
             >
-              <img src={item.img} />
+              <img src={item.image} />
             </a>
           </SwiperSlide>
         ))}

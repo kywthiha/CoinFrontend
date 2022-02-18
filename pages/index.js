@@ -6,9 +6,14 @@ import DailyPreSaleCoinList from "../components/coins/daily-pre-sale-coin-list";
 import PromotedCoinList from "../components/coins/promoted-coin-list";
 import Layout from "../components/layout";
 
-const Index = ({ promoted_coins, daily_pre_sale_coins, all_coins }) => {
+const Index = ({
+  promoted_coins,
+  daily_pre_sale_coins,
+  all_coins,
+  pageData,
+}) => {
   return (
-    <>
+    <Layout banners={pageData.banners}>
       <PromotedCoinList coins={promoted_coins} />
       <div className="mt-3">
         <DailyPreSaleCoinList coins={daily_pre_sale_coins} />
@@ -16,7 +21,7 @@ const Index = ({ promoted_coins, daily_pre_sale_coins, all_coins }) => {
       <div className="mt-3">
         <AllCoin coins={all_coins} />
       </div>
-    </>
+    </Layout>
   );
 };
 
@@ -29,17 +34,18 @@ export async function getServerSideProps(context) {
     axiosInstance.get("/api/coin?status=promoted"),
     axiosInstance.get("/api/coin?status=daily_pre_sale"),
     axiosInstance.get("/api/coin?status=today_best"),
+    axiosInstance.get(`/api/page`),
   ]);
   const promoted_coins = res[0].data;
   const daily_pre_sale_coins = res[1].data;
   const all_coins = res[2].data;
+  const pageData = res[3].data;
 
   // Pass data to the page via props
-  return { props: { promoted_coins, daily_pre_sale_coins, all_coins } };
+  return {
+    props: { promoted_coins, daily_pre_sale_coins, all_coins, pageData },
+  };
 }
 
 export default Index;
 
-Index.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>;
-};

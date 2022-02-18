@@ -2,33 +2,13 @@ import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
-import {
-  BellIcon,
-  ClockIcon,
-  CogIcon,
-  CreditCardIcon,
-  DocumentReportIcon,
-  HomeIcon,
-  MenuAlt1Icon,
-  MenuAlt3Icon,
-  QuestionMarkCircleIcon,
-  ScaleIcon,
-  ShieldCheckIcon,
-  UserGroupIcon,
-  XIcon,
-} from "@heroicons/react/outline";
-import {
-  CashIcon,
-  CheckCircleIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-  OfficeBuildingIcon,
-  SearchIcon,
-} from "@heroicons/react/solid";
+import { MenuAlt3Icon, XIcon } from "@heroicons/react/outline";
+import { SearchIcon } from "@heroicons/react/solid";
 import BannerSlider from "./banner-slider";
 import Footer from "./footer";
 import Link from "next/link";
 import {
+  classNames,
   getToken,
   handleError,
   handleInputEvent,
@@ -38,62 +18,7 @@ import { useRouter } from "next/router";
 import ButtonLoading from "./button-loading";
 import axiosInstance from "../axios-instance";
 
-const banners = [
-  {
-    id: 1,
-    img: "https://cdn.coinmooner.com/mooners/BullrunR.gif",
-    href: "https://t.me/BullRunDev",
-  },
-  {
-    id: 2,
-    img: "https://cdn.coinmooner.com/mooners/ValentineFlokiR.gif",
-    href: "https://t.me/BullRunDev",
-  },
-  {
-    id: 3,
-    img: "https://cdn.coinmooner.com/mooners/crazybeer.gif",
-    href: "https://t.me/BullRunDev",
-  },
-  {
-    id: 4,
-    img: "https://cdn.coinmooner.com/mooners/killbunnyR.gif",
-    href: "https://t.me/BullRunDev",
-  },
-];
-
-const secondaryNavigation = [
-  { name: "Settings", href: "#", icon: CogIcon },
-  { name: "Help", href: "#", icon: QuestionMarkCircleIcon },
-  { name: "Privacy", href: "#", icon: ShieldCheckIcon },
-];
-const cards = [
-  { name: "Account balance", href: "#", icon: ScaleIcon, amount: "$30,659.45" },
-  // More items...
-];
-const transactions = [
-  {
-    id: 1,
-    name: "Payment to Molly Sanders",
-    href: "#",
-    amount: "$20,000",
-    currency: "USD",
-    status: "success",
-    date: "July 11, 2020",
-    datetime: "2020-07-11",
-  },
-  // More transactions...
-];
-const statusStyles = {
-  success: "bg-green-100 text-green-800",
-  processing: "bg-yellow-100 text-yellow-800",
-  failed: "bg-gray-100 text-gray-800",
-};
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export default function Layout({ children, isBanner = true, server_query }) {
+export default function Layout({ children, banners, server_query }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const token = getToken();
   const router = useRouter();
@@ -244,17 +169,14 @@ export default function Layout({ children, isBanner = true, server_query }) {
                   </div>
                   <div className="flex gap-2 justify-center text-white p-4">
                     <div className="h-20">
-                      <img
-                        src="https://coinmooner.com/icon/cup.png"
-                        className="w-full h-full"
-                      />
+                      <img src="/images/cup.png" className="w-full h-full" />
                     </div>
                     <div>
                       <div className="mb-2 font-medium">Daily Winner</div>
                       <div className="flex gap-2">
                         <div className="h-12">
                           <img
-                            src="https://coinmooner.com/logo/12149.webp?v=1"
+                            src="/images/winner_icon.webp"
                             className="w-full h-full"
                           />
                         </div>
@@ -295,18 +217,26 @@ export default function Layout({ children, isBanner = true, server_query }) {
                       )}
                     </div>
                     <div className="flex gap-2  h-8 justify-center">
-                      <div className="overflow-hidden rounded-full">
+                      <a
+                        target="_blank"
+                        href={process.env.NEXT_PUBLIC_TELEGRAM_URL}
+                        className=" block overflow-hidden rounded-full cursor-pointer"
+                      >
                         <img
-                          src="https://i.ibb.co/yythqDn/twitter.png"
+                          src="/images/telegram.png"
                           className="h-full w-full"
                         />
-                      </div>
-                      <div className="overflow-hidden rounded-full">
+                      </a>
+                      <a
+                        target="_blank"
+                        href={process.env.NEXT_PUBLIC_TWITTER_URL}
+                        className="block overflow-hidden rounded-full cursor-pointer"
+                      >
                         <img
-                          src="https://i.ibb.co/yythqDn/twitter.png"
+                          src="/images/twitter.png"
                           className="h-full w-full"
                         />
-                      </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -399,18 +329,20 @@ export default function Layout({ children, isBanner = true, server_query }) {
               )}
 
               <div className="flex gap-2  h-8">
-                <div className="overflow-hidden rounded-full">
-                  <img
-                    src="https://i.ibb.co/yythqDn/twitter.png"
-                    className="h-full w-full"
-                  />
-                </div>
-                <div className="overflow-hidden rounded-full">
-                  <img
-                    src="https://i.ibb.co/yythqDn/twitter.png"
-                    className="h-full w-full"
-                  />
-                </div>
+                <a
+                  target="_blank"
+                  href={process.env.NEXT_PUBLIC_TELEGRAM_URL}
+                  className=" block overflow-hidden rounded-full cursor-pointer"
+                >
+                  <img src="/images/telegram.png" className="h-full w-full" />
+                </a>
+                <a
+                  target="_blank"
+                  href={process.env.NEXT_PUBLIC_TWITTER_URL}
+                  className="block overflow-hidden rounded-full cursor-pointer"
+                >
+                  <img src="/images/twitter.png" className="h-full w-full" />
+                </a>
               </div>
             </div>
           </div>
@@ -477,17 +409,14 @@ export default function Layout({ children, isBanner = true, server_query }) {
               </div>
               <div className="flex gap-2 justify-center text-white p-4">
                 <div className="h-20">
-                  <img
-                    src="https://coinmooner.com/icon/cup.png"
-                    className="w-full h-full"
-                  />
+                  <img src="/images/cup.png" className="w-full h-full" />
                 </div>
                 <div>
                   <div className="mb-2 font-medium">Daily Winner</div>
                   <div className="flex gap-2">
                     <div className="h-12">
                       <img
-                        src="https://coinmooner.com/logo/12149.webp?v=1"
+                        src="/images/winner_icon.webp"
                         className="w-full h-full"
                       />
                     </div>
@@ -552,7 +481,11 @@ export default function Layout({ children, isBanner = true, server_query }) {
               )}
 
               <div className="w-full">
-                {isBanner ? <BannerSlider banners={banners} /> : <></>}
+                {banners && banners.length ? (
+                  <BannerSlider banners={banners} />
+                ) : (
+                  <></>
+                )}
                 {children}
                 <Footer year={new Date().getFullYear()} />
               </div>

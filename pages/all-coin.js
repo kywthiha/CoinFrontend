@@ -35,9 +35,14 @@ const tabs = [
   },
 ];
 
-const AllCoin = ({ all_coins, status = "today_best", server_query }) => {
+const AllCoin = ({
+  all_coins,
+  pageData,
+  status = "today_best",
+  server_query,
+}) => {
   return (
-    <Layout server_query={server_query}>
+    <Layout server_query={server_query} banners={pageData.banners}>
       <div className="m-1 sm:m-4">
         <div className="flex justify-between mb-3 mx-2 sm:mx-0">
           <div className="block">
@@ -107,8 +112,10 @@ export async function getServerSideProps(context) {
     axiosInstance.get(
       `/api/coin?${new URLSearchParams(context.query).toString()}`
     ),
+    axiosInstance.get(`/api/page`),
   ]);
   const all_coins = res[0].data;
+  const pageData = res[1].data;
 
   let status = "today_best";
   if (context.query && context.query.status) {
@@ -116,7 +123,9 @@ export async function getServerSideProps(context) {
   }
 
   // Pass data to the page via props
-  return { props: { all_coins, server_query: context.query, status } };
+  return {
+    props: { all_coins, server_query: context.query, status, pageData },
+  };
 }
 
 export default AllCoin;

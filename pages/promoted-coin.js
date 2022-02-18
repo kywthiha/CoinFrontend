@@ -3,11 +3,11 @@ import axiosInstanceSSR from "../axios-instance-ssr";
 import PromotedCoinList from "../components/coins/promoted-coin-list";
 import Layout from "../components/layout";
 
-const PromotedCoin = ({ promoted_coins, daily_pre_sale_coins, all_coins }) => {
+const PromotedCoin = ({ promoted_coins, pageData }) => {
   return (
-    <>
+    <Layout banners={pageData.banners}>
       <PromotedCoinList coins={promoted_coins} />
-    </>
+    </Layout>
   );
 };
 
@@ -18,15 +18,14 @@ export async function getServerSideProps(context) {
 
   const res = await Promise.all([
     axiosInstance.get("/api/coin?status=promoted"),
+    axiosInstance.get(`/api/page`),
   ]);
   const promoted_coins = res[0].data;
+  const pageData = res[1].data;
 
   // Pass data to the page via props
-  return { props: { promoted_coins } };
+  return { props: { promoted_coins, pageData } };
 }
 
 export default PromotedCoin;
 
-PromotedCoin.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>;
-};
