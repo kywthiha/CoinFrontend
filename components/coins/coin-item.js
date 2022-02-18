@@ -1,21 +1,31 @@
-import { useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import axiosInstance from "../../axios-instance";
 
-
-export default function Coincoin({ coin, index }) {
+export default function CoinItem({ coin, index }) {
   const [coinData, setCoinData] = useState(coin);
 
   const handleClickVote = async (e) => {
+    e.stopPropagation();
+    e.preventDefault();
     setCoinData({
       ...coinData,
       is_vote: coinData.id,
       all_votes_count: coinData.all_votes_count + 1,
     });
-    const res = await axiosInstance.put(`/api/coin/${coinData.id}`);
+    try {
+      const res = await axiosInstance.put(`/api/coin/${coinData.id}`);
+    } catch (e) {
+      alert("Already Vote!");
+    }
   };
 
+  useEffect(() => {
+    setCoinData(coin);
+  }, [coin]);
+
   return (
-    <>
+    <Link href={`/coin/${coin.id}`}>
       <div className="text-white coin-item bg-primary-dark  px-2  coins-center hover:bg-primary cursor-pointer">
         <style jsx>{`
           .coin-item {
@@ -109,6 +119,6 @@ export default function Coincoin({ coin, index }) {
           </button>
         </div>
       </div>
-    </>
+    </Link>
   );
 }
