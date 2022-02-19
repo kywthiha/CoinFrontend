@@ -39,7 +39,7 @@ export default function CoinItem({ coin, index }) {
           }
         `}</style>
         <div className="hidden text-xs sm:text-base sm:flex gap-2 coins-center py-2  justify-center items-center">
-          {index + 1}
+          {index}
         </div>
         <div className="flex gap-2 coins-center py-2 items-center overflow-x-auto">
           <img src={coin.logo} className="h-10 w-10" />

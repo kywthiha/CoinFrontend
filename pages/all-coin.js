@@ -2,6 +2,7 @@ import Link from "next/link";
 import axiosInstanceSSR from "../axios-instance-ssr";
 import CoinList from "../components/coins/coin-list";
 import Layout from "../components/layout";
+import Pagination from "../components/pagination";
 import { classNames } from "../helper";
 
 const tabs = [
@@ -41,6 +42,7 @@ const AllCoin = ({
   status = "today_best",
   server_query,
 }) => {
+  console.log(all_coins.meta);
   return (
     <Layout server_query={server_query} banners={pageData.banners}>
       <div className="m-1 sm:m-4">
@@ -94,10 +96,20 @@ const AllCoin = ({
             Coins can be upvoted every 1h
           </div>
         </div>
-        <CoinList coins={all_coins.data} />
+        <CoinList coins={all_coins.data} meta={all_coins.meta} />
 
         <div className="block lg:hidden text-xs text-white text-center mt-2">
           Coins can be upvoted every 1h
+        </div>
+
+        <div>
+          <Pagination
+            meta={all_coins.meta}
+            href={{
+              pathname: "/all-coin",
+              query: server_query,
+            }}
+          />
         </div>
       </div>
     </Layout>

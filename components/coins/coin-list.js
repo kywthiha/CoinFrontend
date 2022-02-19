@@ -1,6 +1,6 @@
 import CoinItem from "./coin-item";
 
-export default function CoinList({ coins }) {
+export default function CoinList({ coins, meta }) {
   return (
     <div className="">
       <div className="coin-item-header text-white bg-primary border-b border-white px-2 rounded-t-lg items-center">
@@ -43,7 +43,11 @@ export default function CoinList({ coins }) {
       </div>
       <div className="divide-y divide-secondary-light ">
         {coins.map((coin, index) => (
-          <CoinItem coin={coin} index={index} key={coin.id} />
+          <CoinItem
+            coin={coin}
+            index={meta ? index + meta.first_item : index + 1}
+            key={coin.id}
+          />
         ))}
       </div>
     </div>
