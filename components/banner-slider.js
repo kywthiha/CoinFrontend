@@ -31,8 +31,8 @@ export default function BannerSlider({ children, banners }) {
         autoplay={true}
         spaceBetween={50}
         slidesPerView={3}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
+        onSlideChange={() => {}}
+        onSwiper={(swiper) => {}}
         breakpoints={{
           // when window width is >= 640px
           640: {
@@ -51,13 +51,8 @@ export default function BannerSlider({ children, banners }) {
         }}
       >
         {banners.map((item) => (
-          <SwiperSlide>
-            <a
-              href={item.link}
-              key={`banner-slide-item-${item.id}`}
-              target="_blank"
-              className="block w-full h-full"
-            >
+          <SwiperSlide key={`banner-slide-item-${item.id}`}>
+            <a href={item.link} target="_blank" className="block w-full h-full">
               <img src={item.image} />
             </a>
           </SwiperSlide>

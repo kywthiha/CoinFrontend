@@ -52,10 +52,9 @@ export function handleInputEvent(e) {
   }
 }
 
-
 export function numberFormat(number) {
   if (number) {
-      return Number(number).toLocaleString("en-US", {});
+    return Number(number).toLocaleString("en-US", {});
   }
   return number;
 }

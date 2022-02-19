@@ -118,10 +118,7 @@ const Coin = ({ coin, pageData, promoted_coins }) => {
                     </div>
                   </div>
                 </div>
-                <div
-                  className="mt-3 tracking-wider"
-                  dangerouslySetInnerHTML={createMarkup(coin.description)}
-                ></div>
+                <div className="mt-3 tracking-wider whitespace-pre-line">{coin.description}</div>
               </div>
 
               <div className="py-2  px-5 sm:p-2 mt-2 sm:mt-0">

@@ -6,7 +6,7 @@ import { createMarkup, numberFormat } from "../../helper";
 
 const Profile = ({ user }) => {
   return (
-    <>
+    <Layout>
       <div className="p-4 m-1 sm:m-4 text-white">
         <Link href="/">
           <div className="cursor-pointer mb-2 flex justify-start gap-2 items-center">
@@ -37,22 +37,14 @@ const Profile = ({ user }) => {
             </div>
           </div>
           <div className="mt-4 mb-2">ERC20(or)BEP20 Address</div>
-          <div dangerouslySetInnerHTML={createMarkup(user.address)}></div>
+          <div  className="whitespace-pre-line tracking-wide">{user.address}</div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 
 export default Profile;
-
-Profile.getLayout = function getLayout(page) {
-  return (
-    <Layout isBanner={false} isSearchBar={false}>
-      {page}
-    </Layout>
-  );
-};
 
 export async function getServerSideProps(context) {
   // Fetch data from external API

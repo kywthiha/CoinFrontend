@@ -67,9 +67,9 @@ const AllCoin = ({
                     pathname: "/all-coin",
                     query: { ...server_query, status: tab.key },
                   }}
+                  key={tab.key}
                 >
                   <button
-                    key={tab.key}
                     className={classNames(
                       tab.key == status
                         ? "bg-secondary-light"

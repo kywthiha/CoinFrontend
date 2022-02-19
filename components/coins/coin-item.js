@@ -20,9 +20,9 @@ export default function CoinItem({ coin, index }) {
     }
   };
 
-  useEffect(() => {
-    setCoinData(coin);
-  }, [coin]);
+  // useEffect(() => {
+  //   setCoinData(coin);
+  // }, [coin]);
 
   return (
     <Link href={`/coin/${coin.id}`}>

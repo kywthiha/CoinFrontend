@@ -67,7 +67,7 @@ export default function Layout({ children, banners, server_query }) {
     },
     {
       name: "Add A Coin",
-      href: "#",
+      href: "/coin/create",
       icon: "/images/coin.webp",
       current: false,
     },

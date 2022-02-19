@@ -39,7 +39,7 @@ const ProfileEdit = ({ user }) => {
   };
 
   return (
-    <>
+    <Layout>
       <div className="p-4  h-full">
         <Link href="/protected-auth/profile">
           <div className="cursor-pointer mb-2 flex justify-start gap-2 items-center text-white">
@@ -167,19 +167,11 @@ const ProfileEdit = ({ user }) => {
           </div>
         </form>
       </div>
-    </>
+    </Layout>
   );
 };
 
 export default ProfileEdit;
-
-ProfileEdit.getLayout = function getLayout(page) {
-  return (
-    <Layout isBanner={false} isSearchBar={false}>
-      {page}
-    </Layout>
-  );
-};
 
 export async function getServerSideProps(context) {
   // Fetch data from external API
