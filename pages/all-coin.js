@@ -42,7 +42,6 @@ const AllCoin = ({
   status = "today_best",
   server_query,
 }) => {
-  console.log(all_coins.meta);
   return (
     <Layout server_query={server_query} banners={pageData.banners}>
       <div className="m-1 sm:m-4">
