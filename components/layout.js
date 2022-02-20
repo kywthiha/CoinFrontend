@@ -79,7 +79,7 @@ export default function Layout({ children, banners, server_query }) {
     },
     {
       name: "IDO News",
-      href: "/ido-news",
+      href: "/posts",
       icon: "/images/fire.webp",
       current: false,
     },
