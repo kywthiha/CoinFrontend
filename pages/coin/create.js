@@ -12,7 +12,7 @@ import ButtonLoading from "../../components/button-loading";
 import axiosInstanceSSR from "../../axios-instance-ssr";
 import axiosInstance from "../../axios-instance";
 
-const CoinCreate = ({ chains }) => {
+const CoinCreate = ({ chains, pageData }) => {
   const [error, setError] = useState(null);
   const [formProcessing, setFormProcessing] = useState(false);
   const router = useRouter();
@@ -57,7 +57,7 @@ const CoinCreate = ({ chains }) => {
   };
 
   return (
-    <Layout>
+    <Layout daily_winner={pageData.daily_winner}>
       <div className="p-4  h-full">
         <Link href="/">
           <div className="cursor-pointer mb-2 flex justify-start gap-2 items-center text-white">
@@ -556,11 +556,15 @@ export async function getServerSideProps(context) {
 
   const axiosInstance_ssr = axiosInstanceSSR(context);
 
-  const res = await Promise.all([axiosInstance_ssr.get(`/api/coin-chains`)]);
+  const res = await Promise.all([
+    axiosInstance_ssr.get(`/api/coin-chains`),
+    axiosInstance.get(`/api/page`),
+  ]);
   const chains = res[0].data.data;
+  const pageData = res[1].data;
 
   // Pass data to the page via props
-  return { props: { chains } };
+  return { props: { chains, pageData } };
 }
 
 export default CoinCreate;

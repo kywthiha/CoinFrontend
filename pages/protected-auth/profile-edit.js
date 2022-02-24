@@ -9,7 +9,7 @@ import GeneralError from "../../components/general-error";
 import Layout from "../../components/layout";
 import { handleError, handleInputEvent, setToken } from "../../helper";
 
-const ProfileEdit = ({ user }) => {
+const ProfileEdit = ({ user, pageData }) => {
   const [error, setError] = useState(null);
   const [selfUser, setSelfUser] = useState(user);
   const [loginProcessing, setLoginProcessing] = useState(false);
@@ -28,7 +28,7 @@ const ProfileEdit = ({ user }) => {
     setError(null);
     try {
       const formData = new FormData(e.target);
-      formData.append('_method','PUT');
+      formData.append("_method", "PUT");
       const res = await axiosInstance.post("/api/profile", formData);
       router.push("/protected-auth/profile");
     } catch (e) {
@@ -39,7 +39,7 @@ const ProfileEdit = ({ user }) => {
   };
 
   return (
-    <Layout>
+    <Layout daily_winner={pageData.daily_winner}>
       <div className="p-4  h-full">
         <Link href="/protected-auth/profile">
           <div className="cursor-pointer mb-2 flex justify-start gap-2 items-center text-white">
@@ -178,9 +178,13 @@ export async function getServerSideProps(context) {
 
   const axiosInstance_ssr = axiosInstanceSSR(context);
 
-  const res = await Promise.all([axiosInstance_ssr.get("/api/profile")]);
+  const res = await Promise.all([
+    axiosInstance_ssr.get("/api/profile"),
+    axiosInstance.get(`/api/page`),
+  ]);
   const user = res[0].data.data;
+  const pageData = res[1].data;
 
   // Pass data to the page via props
-  return { props: { user } };
+  return { props: { user, pageData } };
 }

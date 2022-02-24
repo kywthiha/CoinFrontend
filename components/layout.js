@@ -18,7 +18,12 @@ import { useRouter } from "next/router";
 import ButtonLoading from "./button-loading";
 import axiosInstance from "../axios-instance";
 
-export default function Layout({ children, banners, server_query }) {
+export default function Layout({
+  children,
+  banners,
+  server_query,
+  daily_winner,
+}) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const token = getToken();
   const router = useRouter();
@@ -168,26 +173,36 @@ export default function Layout({ children, banners, server_query }) {
                     </nav>
                   </div>
                   <div className="flex gap-2 justify-center text-white p-4">
-                    <div className="h-20">
-                      <img src="/images/cup.png" className="w-full h-full" />
-                    </div>
-                    <div>
-                      <div className="mb-2 font-medium">Daily Winner</div>
-                      <div className="flex gap-2">
-                        <div className="h-12">
+                    {daily_winner ? (
+                      <>
+                        <div className="h-20 w-20">
                           <img
-                            src="/images/winner_icon.webp"
+                            src="/images/cup.png"
                             className="w-full h-full"
                           />
                         </div>
                         <div>
-                          <div className="text-xs">Big Coin</div>
-                          <div className="text-xs rounded-md bg-secondary-dark py-1 px-2 mt-1">
-                            $BG
+                          <div className="mb-2 font-medium">Daily Winner</div>
+                          <div className="flex gap-2">
+                            <div className="h-12 w-12">
+                              <img
+                                src={daily_winner.logo}
+                                className="w-full h-full"
+                                alt="Daily Winner"
+                              />
+                            </div>
+                            <div>
+                              <div className="text-xs">{daily_winner.name}</div>
+                              <div className="text-xs inline-block rounded-md bg-secondary-dark py-1 px-2 mt-1">
+                                {daily_winner.symbol}
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                   <div className="flex-1 bg-secondary"></div>
                   <div className="flex-1 flex flex-col h-full gap-4 py-4 items-center">
@@ -408,26 +423,32 @@ export default function Layout({ children, banners, server_query }) {
                 </nav>
               </div>
               <div className="flex gap-2 justify-center text-white p-4">
-                <div className="h-20">
-                  <img src="/images/cup.png" className="w-full h-full" />
-                </div>
-                <div>
-                  <div className="mb-2 font-medium">Daily Winner</div>
-                  <div className="flex gap-2">
-                    <div className="h-12">
-                      <img
-                        src="/images/winner_icon.webp"
-                        className="w-full h-full"
-                      />
+                {daily_winner ? (
+                  <>
+                    <div className="h-20 w-20">
+                      <img src="/images/cup.png" className="w-full h-full" />
                     </div>
                     <div>
-                      <div className="text-xs">Big Coin</div>
-                      <div className="text-xs rounded-md bg-secondary-dark py-1 px-2 mt-1">
-                        $BG
+                      <div className="mb-2 font-medium">Daily Winner</div>
+                      <div className="flex gap-2">
+                        <div className="h-12 w-12">
+                          <img
+                            src={daily_winner.logo}
+                            className="w-full h-full"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-xs">{daily_winner.name}</div>
+                          <div className="text-xs inline-block rounded-md bg-secondary-dark py-1 px-2 mt-1">
+                            {daily_winner.symbol}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </>
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="flex-1 bg-secondary"></div>
               <div className="flex-1"></div>

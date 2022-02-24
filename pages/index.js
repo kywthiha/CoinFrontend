@@ -13,7 +13,7 @@ const Index = ({
   pageData,
 }) => {
   return (
-    <Layout banners={pageData.banners}>
+    <Layout banners={pageData.banners} daily_winner={pageData.daily_winner}>
       <PromotedCoinList coins={promoted_coins} />
       <div className="mt-3">
         <DailyPreSaleCoinList coins={daily_pre_sale_coins} />

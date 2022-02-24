@@ -4,9 +4,9 @@ import axiosInstanceSSR from "../../axios-instance-ssr";
 import Layout from "../../components/layout";
 import { createMarkup, numberFormat } from "../../helper";
 
-const Profile = ({ user }) => {
+const Profile = ({ user, pageData }) => {
   return (
-    <Layout>
+    <Layout daily_winner={pageData.daily_winner}>
       <div className="p-4 m-1 sm:m-4 text-white">
         <Link href="/">
           <div className="cursor-pointer mb-2 flex justify-start gap-2 items-center">
@@ -37,7 +37,9 @@ const Profile = ({ user }) => {
             </div>
           </div>
           <div className="mt-4 mb-2">ERC20(or)BEP20 Address</div>
-          <div  className="whitespace-pre-line tracking-wide">{user.address}</div>
+          <div className="whitespace-pre-line tracking-wide">
+            {user.address}
+          </div>
         </div>
       </div>
     </Layout>
@@ -51,9 +53,13 @@ export async function getServerSideProps(context) {
 
   const axiosInstance = axiosInstanceSSR(context);
 
-  const res = await Promise.all([axiosInstance.get("/api/profile")]);
+  const res = await Promise.all([
+    axiosInstance.get("/api/profile"),
+    axiosInstance.get(`/api/page`),
+  ]);
   const user = res[0].data.data;
+  const pageData = res[1].data;
 
   // Pass data to the page via props
-  return { props: { user } };
+  return { props: { user, pageData } };
 }

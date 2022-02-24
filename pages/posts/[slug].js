@@ -8,7 +8,7 @@ import { createMarkup } from "../../helper";
 
 const PostShow = ({ pageData, post, posts }) => {
   return (
-    <Layout banners={pageData.banners}>
+    <Layout banners={pageData.banners} daily_winner={pageData.daily_winner}>
       <div className="m-1 sm:m-4 text-white">
         <div className="grid sm:grid-cols-4 grid-cols-1 gap-3">
           <div className="col-span-1 sm:col-span-3">

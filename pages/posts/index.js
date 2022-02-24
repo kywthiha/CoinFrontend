@@ -6,7 +6,7 @@ import { PostItem } from "../../components/posts/post-item";
 
 const PostIndex = ({ pageData, posts, server_query }) => {
   return (
-    <Layout banners={pageData.banners}>
+    <Layout banners={pageData.banners} daily_winner={pageData.daily_winner}>
       <div className="m-1 sm:m-4 text-white">
         <h1 className="text-3xl font-medium mb-3 mx-2 sm:mx-0 flex gap-2 items-center">
           <img src="/images/fire.webp" className="w-5 h-5" />

@@ -36,7 +36,7 @@ const Coin = ({ coin, pageData, promoted_coins }) => {
     setPromotedCoins(getFilterPromotedCoins());
   }, [coin]);
   return (
-    <Layout banners={pageData.banners}>
+    <Layout banners={pageData.banners} daily_winner={pageData.daily_winner}>
       <div>
         <div className="sm:m-4 m-3" key={coin.id}>
           <div className="block w-full overflow-hidden text-white shadow-primary border border-secondary  rounded-lg p-4 shadow-sm">

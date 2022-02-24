@@ -4,7 +4,7 @@ import Layout from "../components/layout";
 
 const IDONews = ({pageData}) => {
   return (
-    <Layout banners={pageData.banners}>
+    <Layout banners={pageData.banners} daily_winner={pageData.daily_winner}>
       <div>
         <div className="m-1 sm:m-4 text-white">
           <h1 className="text-lg text-center">Coming Soon...</h1>
