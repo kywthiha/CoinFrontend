@@ -40,6 +40,22 @@ const Profile = ({ user, pageData }) => {
           <div className="whitespace-pre-line tracking-wide">
             {user.address}
           </div>
+          <div className="mt-4 mb-2 font-medium">Your Winning History</div>
+          <div className="">
+            {user.winning_histories && user.winning_histories.length ? (
+              user.winning_histories.map((winning_history, index) => (
+                <div
+                  key={winning_history.id}
+                  className="flex gap-2 border-t border-r border-l border-secondary-light last:border-b"
+                >
+                  <div className="w-10 p-2">{index + 1}</div>
+                  <div className="border-l border-secondary-light p-2">{winning_history.name}</div>
+                </div>
+              ))
+            ) : (
+              <>Empty!</>
+            )}
+          </div>
         </div>
       </div>
     </Layout>
