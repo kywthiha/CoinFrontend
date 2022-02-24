@@ -36,7 +36,7 @@ export function cookieWrite(value) {
 }
 
 export function handleError(error) {
-  alert("Error");
+  // alert("Error");
   console.log(JSON.stringify(error, null, 2));
 }
 
