@@ -39,13 +39,11 @@ export default function Forgot() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setStep(2);
-    return;
     setLoginProcessing(true);
     setError(null);
     try {
       const formData = new FormData(e.target);
-      const res = await axiosInstance.post("/api/request-otp", formData);
+      const res = await axiosInstance.post("/api/request-otp-forgot", formData);
       setSelfFormData(formData);
       setLoginProcessing(false);
       startTimer();
@@ -62,7 +60,10 @@ export default function Forgot() {
     setError(null);
     try {
       startTimer();
-      const res = await axiosInstance.post("/api/request-otp", selfFormData);
+      const res = await axiosInstance.post(
+        "/api/request-otp-forgot",
+        selfFormData
+      );
     } catch (e) {
       handleError(e);
       setError(e);
@@ -71,16 +72,34 @@ export default function Forgot() {
 
   const onVerifySubmit = async (e) => {
     e.preventDefault();
-    setStep(3);
-    return;
     setLoginProcessing(true);
     setError(null);
     try {
       const formData = selfFormData;
       formData.set("otp", otp);
-      const res = await axiosInstance.post("/api/register", formData);
-      setToken(res.data.data.token);
-      router.push("/");
+      const res = await axiosInstance.post("/api/verify-otp-forgot", formData);
+      formData.set("token", res.data.data.token);
+      setSelfFormData(formData);
+      setStep(3);
+      setLoginProcessing(false);
+    } catch (e) {
+      handleError(e);
+      setError(e);
+      setLoginProcessing(false);
+    }
+  };
+
+  const onSaveSubmit = async (e) => {
+    e.preventDefault();
+    setLoginProcessing(true);
+    setError(null);
+    try {
+      const formData = new FormData(e.target);
+      for (var pair of selfFormData.entries()) {
+        formData.set(pair[0], pair[1]);
+      }
+      const res = await axiosInstance.post("/api/save-password", formData);
+      router.push("/auth/login");
     } catch (e) {
       handleError(e);
       setError(e);
@@ -212,7 +231,7 @@ export default function Forgot() {
         </form>
 
         <form
-          onSubmit={onSubmit}
+          onSubmit={onSaveSubmit}
           className={`w-full sm:shadow-primary sm:border sm:border-secondary sm:w-96 overflow-hidden text-white sm:rounded-lg p-4  sm:shadow-lg ${
             step == 3 ? "block" : "hidden"
           }`}
