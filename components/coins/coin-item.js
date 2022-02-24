@@ -75,7 +75,7 @@ export default function CoinItem({ coin, index }) {
           {coin.symbol}
         </div>
         <div className="flex text-xs sm:text-base gap-2 coins-center py-2  justify-center items-center">
-          {coin.launched_at_format}
+          {coin.launched_at_human_format}
         </div>
         <div className="hidden text-xs sm:text-base  sm:flex gap-2 coins-center py-2  justify-center items-center">
           {coin.is_vote_win_feature ? (

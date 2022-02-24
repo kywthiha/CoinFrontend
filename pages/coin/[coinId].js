@@ -96,7 +96,9 @@ const Coin = ({ coin, pageData, promoted_coins }) => {
                   <div className="border-t-2 grid grid-cols-1 sm:grid-cols-4 border-b-2 border-secondary-light py-2">
                     <div className="text-center sm:text-left">
                       Status :
-                      <span className="font-medium text-lg ml-1">Launch</span>
+                      <span className="font-medium text-lg ml-1">
+                        {coin.status_text}
+                      </span>
                     </div>
                     <div className="flex-1 truncate text-center">
                       Vote to Win :
@@ -104,21 +106,26 @@ const Coin = ({ coin, pageData, promoted_coins }) => {
                         {coin.vote_2_win}
                       </span>
                     </div>
-                    <div className=" text-center">
-                      Presale Date :
-                      <span className="font-medium text-lg ml-1">
-                        {coin.pre_sale_at_format}
-                      </span>
-                    </div>
-                    <div className="text-center sm:text-right">
-                      Launch Date :
-                      <span className="font-medium text-lg ml-1">
-                        {coin.launched_at_format}
-                      </span>
-                    </div>
+                    {coin.status_text == "Presale" ? (
+                      <div className="text-center sm:text-right">
+                        Presale Date :
+                        <span className="font-medium text-lg ml-1">
+                          {coin.pre_sale_at_human_format}
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="text-center sm:text-right">
+                        Launch Date :
+                        <span className="font-medium text-lg ml-1">
+                          {coin.launched_at_human_format}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
-                <div className="mt-3 tracking-wider whitespace-pre-line">{coin.description}</div>
+                <div className="mt-3 tracking-wider whitespace-pre-line">
+                  {coin.description}
+                </div>
               </div>
 
               <div className="py-2  px-5 sm:p-2 mt-2 sm:mt-0">
