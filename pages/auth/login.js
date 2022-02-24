@@ -12,6 +12,7 @@ const Login = () => {
   const router = useRouter();
 
   const onSubmit = async (e) => {
+    
     e.preventDefault();
     setLoginProcessing(true);
     setError(null);
@@ -80,7 +81,7 @@ const Login = () => {
               />
             </div>
           </div>
-          <Link href="/">
+          <Link href="/auth/forgot">
             <a className="text-xs text-secondary-light underline">
               Forgot Password?
             </a>
