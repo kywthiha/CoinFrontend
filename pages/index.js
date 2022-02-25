@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import axiosInstanceSSR from "../axios-instance-ssr";
 import AllCoin from "../components/coins/all-coin";
-import CoinList from "../components/coins/coin-list";
 import DailyPreSaleCoinList from "../components/coins/daily-pre-sale-coin-list";
 import PromotedCoinList from "../components/coins/promoted-coin-list";
 import Layout from "../components/layout";
