@@ -159,7 +159,7 @@ const CoinCreate = ({ chains, pageData }) => {
                   htmlFor="pre_sale_at"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Presale At
+                  Presale At (UTC)
                   <span className="text-red ml-2 text-xs">(Required)</span>
                 </label>
                 <div className="mt-1">
@@ -220,7 +220,7 @@ const CoinCreate = ({ chains, pageData }) => {
                   htmlFor="launched_at"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Launched At
+                  Launched At (UTC)
                   <span className="text-red ml-2 text-xs">(Required)</span>
                 </label>
                 <div className="mt-1">

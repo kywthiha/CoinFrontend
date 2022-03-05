@@ -4,7 +4,7 @@ import axiosInstance from "../../axios-instance";
 import axiosInstanceSSR from "../../axios-instance-ssr";
 import PromotedCoinList from "../../components/coins/promoted-coin-list";
 import Layout from "../../components/layout";
-import { createMarkup, numberFormat } from "../../helper";
+import { createMarkup, dateFormat, numberFormat } from "../../helper";
 
 const Coin = ({ coin, pageData, promoted_coins }) => {
   const [coinData, setCoinData] = useState(coin);
@@ -110,14 +110,14 @@ const Coin = ({ coin, pageData, promoted_coins }) => {
                       <div className="text-center sm:text-right">
                         Presale Date :
                         <span className="font-medium text-lg ml-1">
-                          {coin.pre_sale_at_format}
+                          {dateFormat(coin.pre_sale_at)}
                         </span>
                       </div>
                     ) : (
                       <div className="text-center sm:text-right">
                         Launch Date :
                         <span className="font-medium text-lg ml-1">
-                          {coin.launched_at_format}
+                          {dateFormat(coin.launched_at)}
                         </span>
                       </div>
                     )}

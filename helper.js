@@ -59,6 +59,14 @@ export function numberFormat(number) {
   return number;
 }
 
+export function dateFormat(date) {
+  if (date) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric', hour12: true,hour:'numeric',minute:'numeric' };
+    return new Date(date).toLocaleString('en-US', options);
+  }
+  return date;
+}
+
 export function range(start, end) {
   let length = end - start + 1;
   return Array.from({ length }, (_, idx) => idx + start);
