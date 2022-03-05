@@ -320,7 +320,9 @@ export default function Layout({
                   />
                 </div>
               </form>
-              <a className="btn-primary-outline">Add a Coin</a>
+              <Link href="/coin/create">
+                <a className="btn-primary-outline">Add a Coin</a>
+              </Link>
               {token ? (
                 <>
                   <button

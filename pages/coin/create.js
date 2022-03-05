@@ -17,19 +17,12 @@ const CoinCreate = ({ chains, pageData }) => {
   const [formProcessing, setFormProcessing] = useState(false);
   const router = useRouter();
   const [coin, setCoin] = useState({});
-  const [whitelistOrPublic, setWhiteListOrPublic] = useState("whitelist");
 
   const handleOnChange = (e) => {
     setCoin({
       ...coin,
       ...handleInputEvent(e),
     });
-  };
-
-  const handleOnCheckBox = (e) => {
-    if (e.target.checked) {
-      setWhiteListOrPublic(e.target.value);
-    }
   };
 
   const handleOnChangeDateTimePicker = (key) => (value) => {
@@ -206,39 +199,13 @@ const CoinCreate = ({ chains, pageData }) => {
                 </div>
               </div>
               <div className="mb-2">
-                <div className="flex gap-2 items-center mb-1">
-                  <label className="cursor-pointer ">
-                    <input
-                      onChange={handleOnCheckBox}
-                      checked={whitelistOrPublic == "whitelist"}
-                      type="radio"
-                      name="whitelist_or_public"
-                      value="whitelist"
-                      className="mr-2 focus:ring-0 focus:border-secondary-light focus:outline-none shadow-sm sm:text-sm    text-secondary-light   bg-primary-dark"
-                    />
-                    Whitelist Link
-                  </label>
-                  <label className="cursor-pointer">
-                    <input
-                      onChange={handleOnCheckBox}
-                      checked={whitelistOrPublic == "public"}
-                      type="radio"
-                      name="whitelist_or_public"
-                      value="public"
-                      className="mr-2 focus:ring-0 focus:border-secondary-light shadow-sm sm:text-sm border-secondary-light bg-primary-dark"
-                    />
-                    Public Link
-                  </label>
-                </div>
-                {whitelistOrPublic && whitelistOrPublic == "public" ? (
-                  <input
-                    type="url"
-                    name="public_link"
-                    id="public_link"
-                    autoComplete="public_link"
-                    className="input-primary"
-                  />
-                ) : (
+                <label
+                  htmlFor="whitelist_link"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Whitelist Link
+                </label>
+                <div className="mt-1">
                   <input
                     type="url"
                     name="whitelist_link"
@@ -246,7 +213,7 @@ const CoinCreate = ({ chains, pageData }) => {
                     autoComplete="whitelist_link"
                     className="input-primary"
                   />
-                )}
+                </div>
               </div>
               <div className="mb-2">
                 <label

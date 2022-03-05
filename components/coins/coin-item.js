@@ -52,6 +52,9 @@ export default function CoinItem({ coin, index }) {
               {coin.kyc_link ? (
                 <a
                   href={coin.kyc_link}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
                   target="_blank"
                   className="text-xs inline-flex bg-yellow text-primary rounded-full  px-2"
                 >
@@ -59,6 +62,9 @@ export default function CoinItem({ coin, index }) {
                 </a>
               ) : coin.audit_link ? (
                 <a
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
                   href={coin.audit_link}
                   target="_blank"
                   className="text-xs inline-flex bg-yellow text-primary rounded-full px-2"
@@ -87,6 +93,9 @@ export default function CoinItem({ coin, index }) {
         <div className="hidden text-xs sm:text-base sm:flex gap-2 coins-center py-2  justify-center items-center">
           {coin.whitelist_link ? (
             <a
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
               target="_blank"
               href={coin.whitelist_link}
               className="bg-primary border border-secondary hover:border-secondary-light hover:shadow-md hover:shadow-secondary-dark rounded-full py-2 px-3"
@@ -95,6 +104,9 @@ export default function CoinItem({ coin, index }) {
             </a>
           ) : coin.public_link ? (
             <a
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
               target="_blank"
               href={coin.public_link}
               className="bg-primary border border-secondary hover:border-secondary-light hover:shadow-md hover:shadow-secondary-dark rounded-full py-2 px-3"
