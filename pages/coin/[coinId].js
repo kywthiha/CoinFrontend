@@ -93,7 +93,7 @@ const Coin = ({ coin, pageData, promoted_coins }) => {
                   </div>
                 </div>
                 <div className="mt-3">
-                  <div className="border-t-2 grid grid-cols-1 sm:grid-cols-4 border-b-2 border-secondary-light py-2">
+                  <div className="border-t-2 grid grid-cols-1 sm:grid-cols-3 border-b-2 border-secondary-light py-2">
                     <div className="text-center sm:text-left">
                       Status :
                       <span className="font-medium text-lg ml-1">
@@ -110,14 +110,14 @@ const Coin = ({ coin, pageData, promoted_coins }) => {
                       <div className="text-center sm:text-right">
                         Presale Date :
                         <span className="font-medium text-lg ml-1">
-                          {coin.pre_sale_at_human_format}
+                          {coin.pre_sale_at_format}
                         </span>
                       </div>
                     ) : (
                       <div className="text-center sm:text-right">
                         Launch Date :
                         <span className="font-medium text-lg ml-1">
-                          {coin.launched_at_human_format}
+                          {coin.launched_at_format}
                         </span>
                       </div>
                     )}
