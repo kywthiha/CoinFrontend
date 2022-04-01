@@ -43,7 +43,11 @@ const AllCoin = ({
   server_query,
 }) => {
   return (
-    <Layout server_query={server_query} banners={pageData.banners} daily_winner={pageData.daily_winner}>
+    <Layout
+      server_query={server_query}
+      banners={pageData.banners}
+      daily_winner={pageData.daily_winner}
+    >
       <div className="m-1 sm:m-4">
         <div className="flex justify-between mb-3 mx-2 sm:mx-0">
           <div className="block">
@@ -72,9 +76,7 @@ const AllCoin = ({
                 >
                   <button
                     className={classNames(
-                      tab.key == status
-                        ? "bg-secondary-light"
-                        : "bg-primary hover:bg-secondary",
+                      tab.key == status ? "bg-tag-active" : "bg-tag",
                       "px-3 py-2 font-medium text-white text-sm rounded-md inline-flex items-center gap-2 "
                     )}
                   >

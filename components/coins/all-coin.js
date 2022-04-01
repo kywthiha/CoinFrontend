@@ -81,8 +81,8 @@ export default function AllCoin({ coins }) {
                   key={tab.key}
                   className={classNames(
                     tab.key == status
-                      ? "bg-secondary-light"
-                      : "bg-primary hover:bg-secondary",
+                      ? "bg-tag-active"
+                      : "bg-tag",
                     "px-3 py-2 font-medium text-white text-sm rounded-md inline-flex items-center gap-2 "
                   )}
                 >

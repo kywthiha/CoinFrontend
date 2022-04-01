@@ -24,7 +24,7 @@ const DailyPreSale = ({ promoted_coins, pageData, server_query }) => {
               {tabs.map((tab) => (
                 <button
                   key={tab.name}
-                  className="px-3 bg-secondary-light py-2 font-medium text-white text-sm rounded-md inline-flex items-center gap-2 "
+                  className="px-3 bg-tag-active py-2 font-medium text-white text-sm rounded-md inline-flex items-center gap-2 "
                 >
                   {tab.image ? (
                     <img src={tab.image} className="w-4 h-4" />

@@ -23,8 +23,8 @@ export default function PromotedCoinList({ coins }) {
                   href={tab.href}
                   className={classNames(
                     tab.current
-                      ? "bg-secondary-light"
-                      : "bg-primary hover:bg-secondary",
+                      ? "bg-tag-active"
+                      : "bg-tag",
                     "px-3 py-2 font-medium text-white text-sm rounded-md inline-flex items-center gap-2 "
                   )}
                   aria-current={tab.current ? "page" : undefined}
