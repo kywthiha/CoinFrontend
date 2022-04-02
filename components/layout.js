@@ -145,7 +145,7 @@ export default function Layout({
                       className="flex-1 flex flex-col overflow-y-auto"
                       aria-label="Sidebar"
                     >
-                      <div className="px-2 pl-7">
+                      <div className="">
                         {navigation.map((item) => (
                           <Link href={item.href} key={item.name}>
                             <a
@@ -154,8 +154,10 @@ export default function Layout({
                                 setSidebarOpen(false);
                               }}
                               className={classNames(
-                                item.current ? "text-white" : "text-white",
-                                "group flex items-center py-2 text-sm leading-6 outline-none border-none"
+                                router.pathname == item.href
+                                  ? "nav-item-active"
+                                  : "text-white",
+                                "group flex items-center py-2 text-sm leading-6 outline-none border-none  px-2 pl-7"
                               )}
                               aria-current={item.current ? "page" : undefined}
                             >
@@ -397,7 +399,7 @@ export default function Layout({
                   className="flex-1 flex flex-col overflow-y-auto"
                   aria-label="Sidebar"
                 >
-                  <div className="px-2 pl-7">
+                  <div className="">
                     {navigation.map((item) => (
                       <Link key={item.name} href={item.href}>
                         <a
@@ -406,10 +408,10 @@ export default function Layout({
                             // setSidebarOpen(false);
                           }}
                           className={classNames(
-                            item.current
-                              ? "text-white"
-                              : "text-white hover:text-primary",
-                            "group flex items-center py-2 text-sm leading-6"
+                            router.pathname == item.href
+                              ? "nav-item-active"
+                              : "text-white ",
+                            "group flex items-center py-2 text-sm leading-6 nav-item px-2 pl-7 rounded"
                           )}
                           aria-current={item.current ? "page" : undefined}
                         >

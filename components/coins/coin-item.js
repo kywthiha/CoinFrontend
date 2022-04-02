@@ -121,10 +121,10 @@ export default function CoinItem({ coin, index }) {
           <button
             onClick={handleClickVote}
             disabled={coinData.is_vote}
-            className={`border w-24 text-center px-2 py-2  rounded-md ${
+            className={`w-24 text-center px-2 py-2  rounded-md ${
               coinData.is_vote
                 ? "cursor-not-allowed bg-success"
-                : "border-secondary-light hover:bg-secondary-light "
+                : "btn-vote-coin"
             }`}
           >
             🚀 {coinData.all_votes_count || ""}
